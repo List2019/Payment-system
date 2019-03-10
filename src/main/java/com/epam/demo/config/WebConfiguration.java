@@ -35,7 +35,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
             registry.addInterceptor(roleInterceptor()).addPathPatterns("/**")
                     .excludePathPatterns("/login",
                             "/registration", "/logout", "/css/**", "/js/**", "/checkloginexist", "/refill", "/transfer",
-                            "/account   _blocking", "/main");
+                            "/account_blocking", "/main");
 
             registry.addInterceptor(userNameAwareInterceptor()).addPathPatterns("/**")
                     .excludePathPatterns("/login",

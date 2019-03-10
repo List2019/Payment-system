@@ -2,7 +2,6 @@ package com.epam.demo.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 
 public class Users {
 
@@ -12,6 +11,7 @@ public class Users {
     @Size(min=2, max=30,message = "Фамилия должно быть не менее 2 символов и не больше 30")
     private String last_name;
     private long number_card;
+    @Size(min=5, max=10,message = "Пароль должен быть больше 5 символов и не больше 10")
     private String password;
     @Size(min=2, max=30,message = "Логин должно быть не менее 2 символов и не больше 30")
     private String login;

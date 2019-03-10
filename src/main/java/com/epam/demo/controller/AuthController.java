@@ -53,7 +53,7 @@ public class AuthController {
 
         if(currentUser != null){
             userManager.setUser(currentUser);
-            credit_cardManager.setCredit_card(credit_cardService.getCardByNumberCard(currentUser.getNumber_card()));
+            credit_cardManager.setCredit_card(credit_cardService.getCardByNumberCard(currentUser.getNumber_card()).get(0));
             modelAndView.setViewName("redirect:/main");
         }
 
@@ -61,7 +61,6 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    @ResponseBody
     public ModelAndView registration(@Validated Users user,BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -70,7 +69,6 @@ public class AuthController {
             modelAndView.setViewName("registration");
         }
         else {
-
             userService.addUsers(user);
             userManager.setUser(user);
             modelAndView.setViewName("redirect:/main");

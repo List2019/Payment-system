@@ -6,13 +6,15 @@ import com.epam.demo.repository.ICredit_CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class Credit_CardService implements ICredit_CardService {
 
     @Autowired
     private Credit_CardRepository credit_cardRepository;
 
-    public Credit_Card getCardByNumberCard(long number_card) {
+    public List<Credit_Card> getCardByNumberCard(long number_card) {
         return credit_cardRepository.getCardByNumberCard(number_card);
     }
 
@@ -24,7 +26,7 @@ public class Credit_CardService implements ICredit_CardService {
         credit_cardRepository.blockCreditCardByNumberCard(number_card);
     }
 
-    public Credit_Card checkBalance(double value, long number_card) {
+    public List<Credit_Card> checkBalance(double value, long number_card) {
         return credit_cardRepository.checkBalance(value, number_card);
     }
 

@@ -1,3 +1,4 @@
+/*
 $('document').ready(function(){
    $("#login").keyup(function(){
      $.ajax({
@@ -16,4 +17,5 @@ $('document').ready(function(){
 });
 
 
+*/
 

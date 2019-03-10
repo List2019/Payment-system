@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class HomeController {
@@ -29,8 +28,7 @@ public class HomeController {
 
 
     @RequestMapping("/main")
-    public ModelAndView mainpage(HttpServletRequest request,
-                                 @PathVariable(name = "pageId", required = false) String pageId) {
+    public ModelAndView mainpage() {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("main");
@@ -40,7 +38,7 @@ public class HomeController {
     }
 
     @GetMapping("/refill")
-    public ModelAndView refillpage(Users user) {
+    public ModelAndView refillpage() {
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("refill");
@@ -50,7 +48,7 @@ public class HomeController {
     }
 
     @GetMapping("/transfer")
-    public ModelAndView transferpage(Users user) {
+    public ModelAndView transferpage() {
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("transfer");
@@ -60,7 +58,7 @@ public class HomeController {
     }
 
     @GetMapping("/account_blocking")
-    public ModelAndView blockingpage(Users user) {
+    public ModelAndView blockingpage() {
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("account_blocking");
@@ -73,18 +71,17 @@ public class HomeController {
     public ModelAndView refill(double value) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Credit_Card currentCard = credit_cardService.getCardByNumberCard(userManager.getUser().getNumber_card());
+        Credit_Card currentCard = credit_cardService.getCardByNumberCard(userManager.getUser().getNumber_card()).get(0);
 
         if(currentCard.isBlock()){
             modelAndView.addObject("message","К сожалению ваш счёт заблокирован");
-            modelAndView.setViewName("refill");
         }
         else{
             credit_cardService.addMoney(value,userManager.getUser().getNumber_card());
             modelAndView.addObject("message","Пополнение выполнен успешно, ваш баланс: " + currentCard.getBalance() + "");
-            modelAndView.setViewName("refill");
         }
 
+        modelAndView.setViewName("refill");
         return modelAndView;
     }
 
@@ -110,7 +107,7 @@ public class HomeController {
             modelAndView.setViewName("refill");
         }
         else {
-            if (credit_cardService.checkBalance(value, user.getNumber_card()) != null) {
+            if (!credit_cardService.checkBalance(value, user.getNumber_card()).isEmpty()) {
                 credit_cardService.removeMoney(value, currentCard);
                 credit_cardService.addMoney(value, number_card);
                 modelAndView.addObject("message", "Перевод выполнен успешно");

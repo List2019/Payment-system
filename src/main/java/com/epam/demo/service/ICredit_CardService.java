@@ -2,9 +2,11 @@ package com.epam.demo.service;
 
 import com.epam.demo.dto.Credit_Card;
 
+import java.util.List;
+
 public interface ICredit_CardService {
 
-    Credit_Card getCardByNumberCard(long number_card);
+    List<Credit_Card> getCardByNumberCard(long number_card);
 
     void addMoney(double value, long number_card);
 
@@ -12,7 +14,7 @@ public interface ICredit_CardService {
 
     void unblockCreditCardByNumberCard(long number_card);
 
-    Credit_Card checkBalance(double value, long number_card);
+    List<Credit_Card> checkBalance(double value, long number_card);
 
     void removeMoney(double value, Credit_Card currentCard);
 

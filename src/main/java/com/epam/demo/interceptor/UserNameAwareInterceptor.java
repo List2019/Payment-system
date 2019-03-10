@@ -20,7 +20,7 @@ public class UserNameAwareInterceptor implements HandlerInterceptor {
                            ModelAndView modelAndView) throws Exception {
         Users currentUser = userManager.getUser();
 
-        //modelAndView.addObject("userName", currentUser.getName());
+        modelAndView.addObject("userName", currentUser.getName());
         modelAndView.addObject("currentUserRole", currentUser.getRole());
     }
 

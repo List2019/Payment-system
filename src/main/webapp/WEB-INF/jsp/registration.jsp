@@ -7,26 +7,30 @@
   <style>
      <%@include file="/WEB-INF/css/main.css"%>
  </style>
-<!--  <script src="/WEB-INF/script/jquery-3.3.1.min.js"></script> -->
+ <!-- <script src="/WEB-INF/script/jquery-3.3.1.min.js"></script>
  <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
   	<script type="text/javascript">
     <%@include file="/WEB-INF/script/registration.js"%>
-</script>
+</script> -->
  </head>
 	 <body>
 	 	<div class = "form">
+
 	 	<c:if test="${errors != null}">
-            <div class="errorMessage">
-            <div style="font-weight: 600;">
-            Не удается зарегистрироваться<br>
-            <br>
+
+          <div class="errorMessage">
+          <!-- <div style="font-weight: 800;"> -->
+          Не удается зарегистрироваться<br>
+          <br>
+          <!-- </div> -->
+
+          <c:forEach var="error" items="${errors}">
+           	${error.defaultMessage}<br>
+          </c:forEach>
           </div>
 
-           <c:forEach var="error" items="${errors}">
-           	${error.defaultMessage}<br>
-         </c:forEach>
-           </div>
-        </c:if>
+    </c:if>
+
 		 <form method="post" action="/registration">
 		 	 <input name="name" type="text" placeholder="Имя"required autofocus/>
 		 	 <input name="last_name" type="text" placeholder="Фамилия"required/>

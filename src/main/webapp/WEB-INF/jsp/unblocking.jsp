@@ -11,8 +11,7 @@
  <script src="/WEB-INF/script/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
  </head>
-	 <body>
-	 	<!-- <form:form method="POST" commandName="Users" action="admin/unbloсking"> -->	  
+	 <body>  
 	 	<table>
 		 		<tr>
 				  <th>id_users</th>
@@ -38,12 +37,10 @@
 				</tr>
 				</c:forEach>
 			</table>
-			<br>
-		<!-- </form:form> -->
-
+	
 		<div class="unblock">
 		<form method="post" action="/unblocking">
-	    <input name="number_card" type="number" placeholder="Номер карты" required size="5"/>
+	    <input name="number_card" type="number" placeholder="Номер карты" required/>
 
 	    <form action="">
 	    	<button type="submit">Разблокировать</button>
