@@ -20,6 +20,8 @@
 			 </form>
 		</form>
 	    </div>
+	    <div id="message">
 	    ${message}
+		</div>
 	 </body>
 </html>

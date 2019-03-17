@@ -14,23 +14,19 @@
 </script> -->
  </head>
 	 <body>
-	 	<div class = "form">
+    <c:if test="${errors != null}">
 
-	 	<c:if test="${errors != null}">
-
-          <div class="errorMessage">
-          <!-- <div style="font-weight: 800;"> -->
-          Не удается зарегистрироваться<br>
+          <div id="error" class="errorMessage">
+          Не удается зарегистрироваться
           <br>
-          <!-- </div> -->
-
+          <br>
           <c:forEach var="error" items="${errors}">
-           	${error.defaultMessage}<br>
+            ${error.defaultMessage}<br>
           </c:forEach>
           </div>
 
     </c:if>
-
+	 	<div class = "form">
 		 <form method="post" action="/registration">
 		 	 <input name="name" type="text" placeholder="Имя"required autofocus/>
 		 	 <input name="last_name" type="text" placeholder="Фамилия"required/>

@@ -18,10 +18,10 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    private Credit_CardManager credit_cardManager;
+    private Credit_CardManager creditCardManager;
 
     @Autowired
-    private Credit_CardService credit_cardService;
+    private Credit_CardService creditCardService;
 
     @Autowired
     private UserManager userManager;
@@ -58,8 +58,8 @@ public class AdminController {
     public ModelAndView unblockingpage(Long number_card) {
         ModelAndView modelAndView = new ModelAndView();
 
-            if(!credit_cardService.getCardByNumberCard(number_card).isEmpty()){
-                credit_cardService.unblockCreditCardByNumberCard(number_card);
+            if(!creditCardService.getCardByNumberCard(number_card).isEmpty()){
+                creditCardService.unblockCreditCardByNumberCard(number_card);
                 modelAndView.setViewName("redirect:unblocking");
             }
             else{

@@ -4,10 +4,12 @@
 <html>
  <head>
  <meta charset="utf-8" />
- <title>Логи</title>
+ <title>Последние операции</title>
  <style>
      <%@include file="/WEB-INF/css/main.css"%>
  </style>
+  <script src="/WEB-INF/script/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
  </head>
 	 <body>
 	 	<table>
@@ -23,11 +25,9 @@
 					<td><a>${logIterator.getId_users()}</a></td>
 					<td><a>${logIterator.getTime_transaction()}</a></td>
 					<td><a>${logIterator.getNew_balance()}</a></td>
-					<br>
+					
 				</tr>
 		</c:forEach>
-
-		<!-- href="/book/${userIterator.Id_users}" -->
 		</table>
 	 </body>
 </html>

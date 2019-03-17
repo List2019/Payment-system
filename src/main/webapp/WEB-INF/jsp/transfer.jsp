@@ -21,6 +21,8 @@
 		    </form>
 		 </form>
 		</div>
-		${message}
+		<div id="message">
+	    ${message}
+		</div>
 	 </body>
 </html>

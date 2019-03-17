@@ -15,10 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
     @Autowired
-    private Credit_CardManager credit_cardManager;
+    private Credit_CardManager creditCardManager;
 
     @Autowired
-    private Credit_CardService credit_cardService;
+    private Credit_CardService creditCardService;
 
     @Autowired
     private UserManager userManager;
@@ -71,13 +71,13 @@ public class HomeController {
     public ModelAndView refill(double value) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Credit_Card currentCard = credit_cardService.getCardByNumberCard(userManager.getUser().getNumber_card()).get(0);
+        Credit_Card currentCard = creditCardService.getCardByNumberCard(userManager.getUser().getNumber_card()).get(0);
 
         if(currentCard.isBlock()){
             modelAndView.addObject("message","К сожалению ваш счёт заблокирован");
         }
         else{
-            credit_cardService.addMoney(value,userManager.getUser().getNumber_card());
+            creditCardService.addMoney(value,userManager.getUser().getNumber_card());
             modelAndView.addObject("message","Пополнение выполнен успешно, ваш баланс: " + currentCard.getBalance() + "");
         }
 
@@ -88,8 +88,16 @@ public class HomeController {
     @PostMapping("/account_blocking")
     public ModelAndView blocking(Users user) {
         ModelAndView modelAndView = new ModelAndView();
-        credit_cardService.blockCreditCardByNumberCard(userManager.getUser().getNumber_card());
-        modelAndView.addObject("message","Ваша карта успешно заблокированна");
+
+        Credit_Card currentCard = creditCardService.getCardByNumberCard(userManager.getUser().getNumber_card()).get(0);
+
+        if(currentCard.isBlock()){
+            modelAndView.addObject("message","Ваша карта уже заблокированна");
+        }
+        else{
+            creditCardService.blockCreditCardByNumberCard(userManager.getUser().getNumber_card());
+            modelAndView.addObject("message","Ваша карта успешно заблокированна");
+        }
         modelAndView.setViewName("account_blocking");
 
         return modelAndView;
@@ -100,16 +108,16 @@ public class HomeController {
     public ModelAndView transfer(double value, long number_card,Users user) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Credit_Card currentCard = credit_cardManager.getCredit_card();
+        Credit_Card currentCard = creditCardManager.getCredit_card();
 
         if(currentCard.isBlock()){
             modelAndView.addObject("message","К сожалению ваш счёт заблокирован");
             modelAndView.setViewName("refill");
         }
         else {
-            if (!credit_cardService.checkBalance(value, user.getNumber_card()).isEmpty()) {
-                credit_cardService.removeMoney(value, currentCard);
-                credit_cardService.addMoney(value, number_card);
+            if (!creditCardService.checkBalance(value, user.getNumber_card()).isEmpty()) {
+                creditCardService.removeMoney(value, currentCard);
+                creditCardService.addMoney(value, number_card);
                 modelAndView.addObject("message", "Перевод выполнен успешно");
                 modelAndView.setViewName("transfer");
             }

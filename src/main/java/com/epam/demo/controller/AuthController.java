@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,10 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 public class AuthController {
 
     @Autowired
-    private Credit_CardManager credit_cardManager;
+    private Credit_CardManager creditCardManager;
 
     @Autowired
-    private Credit_CardService credit_cardService;
+    private Credit_CardService creditCardService;
 
     @Autowired
     private UserManager userManager;
@@ -53,7 +52,7 @@ public class AuthController {
 
         if(currentUser != null){
             userManager.setUser(currentUser);
-            credit_cardManager.setCredit_card(credit_cardService.getCardByNumberCard(currentUser.getNumber_card()).get(0));
+            creditCardManager.setCredit_card(creditCardService.getCardByNumberCard(currentUser.getNumber_card()).get(0));
             modelAndView.setViewName("redirect:/main");
         }
 
