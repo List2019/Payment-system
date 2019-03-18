@@ -7,11 +7,11 @@
   <style>
      <%@include file="/WEB-INF/css/main.css"%>
  </style>
- <!-- <script src="/WEB-INF/script/jquery-3.3.1.min.js"></script>
- <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
-  	<script type="text/javascript">
-    <%@include file="/WEB-INF/script/registration.js"%>
-</script> -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+</script>
+<script type="text/javascript">
+<%@include file="/WEB-INF/script/registration.js"%>
+</script>
  </head>
 	 <body>
     <c:if test="${errors != null}">

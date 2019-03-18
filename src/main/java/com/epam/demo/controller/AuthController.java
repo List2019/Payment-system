@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
@@ -86,12 +87,11 @@ public class AuthController {
         return modelAndView;
     }
 
-   /* @ResponseBody
+    @ResponseBody
     @GetMapping("/checkLoginExist")
-    public boolean checkLoginExist(Users user) {
+    public boolean checkLoginExist(String login) {
 
-        return usersDao.checkUsersByLogin(user.getLogin()) == null;
+       return userService.checkUsersByLogin(login).isEmpty();
 
-    }*/
-   //TODO сделать ajax для логина
+    }
 }

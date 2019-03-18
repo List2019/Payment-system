@@ -1,21 +1,22 @@
-/*
+
 $('document').ready(function(){
    $("#login").keyup(function(){
      $.ajax({
      	type: "GET",
      	url: '/checkLoginExist',
-     	data:{'login':$("#login").val()}
-     }).done(function (msg) {
+     	data:{'login':$("#login").val()
+        }  
+        }).done(function (msg) {
      	if(msg == true){
-     		$("#login").css("background-color","red")
+     		$("#login").css("background-color","green");
      	}
      	else {
-     		$("#login").css("background-color","green")
+     		$("#login").css("background-color","red");
      	}
-     });
    });
+});
 });
 
 
-*/
+
 

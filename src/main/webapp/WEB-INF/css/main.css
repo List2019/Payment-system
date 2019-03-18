@@ -73,9 +73,9 @@
   padding-top: 1%;
 }
 
-.login{
+/*#login{
   background-color: #4CAF50;
-}
+}*/
 
 table {
 font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
@@ -134,3 +134,5 @@ textarea:focus {
   text-align: center;
   position: relative;
 }
+
+

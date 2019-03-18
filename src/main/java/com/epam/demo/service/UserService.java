@@ -29,4 +29,8 @@ public class UserService implements IUserService{
         return usersRepository.getAllUsers();
     }
 
+    public  List<Users> checkUsersByLogin(String login) {
+        return usersRepository.checkUsersByLogin(login);
+    }
+
 }

@@ -25,8 +25,8 @@
 					<td><a>${logIterator.getId_users()}</a></td>
 					<td><a>${logIterator.getTime_transaction()}</a></td>
 					<td><a>${logIterator.getNew_balance()}</a></td>
-					
-				</tr>
+			
+			</tr>
 		</c:forEach>
 		</table>
 	 </body>

@@ -9,7 +9,7 @@ public interface IUsersRepository {
 
     Users checkLoginAndPassword(String login, String password);
 
-    Users checkUsersByLogin(String login);
+    List<Users> checkUsersByLogin(String login);
 
     List<Users> getAllUsers();
 

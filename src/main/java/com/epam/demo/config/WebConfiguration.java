@@ -30,16 +30,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         public void addInterceptors(InterceptorRegistry registry) {
             registry.addInterceptor(authInterceptor()).addPathPatterns("/**")
                     .excludePathPatterns("/login", "/registration",
-                            "/logout", "/css/**", "/js/**");
+                            "/logout", "/css/**", "/js/**", "/checkLoginExist");
 
             registry.addInterceptor(roleInterceptor()).addPathPatterns("/**")
                     .excludePathPatterns("/login",
-                            "/registration", "/logout", "/css/**", "/js/**", "/checkloginexist", "/refill", "/transfer",
+                            "/registration", "/logout", "/css/**", "/js/**", "/checkLoginExist", "/refill", "/transfer",
                             "/account_blocking", "/main");
 
             registry.addInterceptor(userNameAwareInterceptor()).addPathPatterns("/**")
                     .excludePathPatterns("/login",
-                            "/registration", "/logout", "/css/**", "/js/**", "/checkloginexist");
+                            "/registration", "/logout", "/css/**", "/js/**", "/checkLoginExist");
         }
 
     }

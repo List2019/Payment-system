@@ -43,9 +43,9 @@ public class UsersRepository implements IUsersRepository{
         return jdbcTemplate.queryForObject(sql, new Object[]{login, password}, ROW_MAPPER);
     }
 
-    public Users checkUsersByLogin(String login) {
+    public List<Users> checkUsersByLogin(String login) {
         String sql = "SELECT * FROM epam.users where login = ? ;";
-        return jdbcTemplate.queryForObject(sql, new Object[]{login}, ROW_MAPPER);
+        return jdbcTemplate.query(sql, new Object[]{login}, ROW_MAPPER);
     }
 
     public List<Users> getAllUsers() {
