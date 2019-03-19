@@ -10,8 +10,10 @@
  </style>
  </head>
 	 <body>
+	 	<div class="button">
 	 	<div class="logout">
 		<ul><li><a href="/logout">выйти</a></li></ul>
+		</div>
 		</div>
 	 	<div class ="main">
 		 <form method="post" action="/main">

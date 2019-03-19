@@ -10,6 +10,16 @@
  </style>
  </head>
 	 <body>
+	 	<div class="button">
+		<ul>
+			<div class="logout">
+			<li><a href="/logout">выйти</a></li>
+			</div>
+			<div class="back">
+			<li><a href="/admin">Назад</a></li>
+			</div>
+		</ul>
+		</div>
 	 	<table>
 	 	<tr>
 				  <th>id_users</th>

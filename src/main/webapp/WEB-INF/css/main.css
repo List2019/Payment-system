@@ -56,6 +56,7 @@
   float:right; 
   margin-right:20px;
 }
+
 .logout a {
   text-decoration: none; 
   background:#4CAF50; 
@@ -65,17 +66,35 @@
   font-size: 8pt;
   border-radius:5px; 
   text-transform: uppercase;
+  text-align: right;
 }
 
-.logout ul {
+/*.logout ul {
   list-style: none; 
   padding-left: 90%;
   padding-top: 1%;
+}*/
+
+.back a {
+  text-decoration: none; 
+  background:#4CAF50; 
+  color:#FFFFFF; 
+  padding:8px; 
+  font-family: "Roboto", sans-serif;
+  font-size: 8pt;
+  border-radius:5px; 
+  text-transform: uppercase;
+  text-align: left;
 }
 
-/*#login{
-  background-color: #4CAF50;
-}*/
+.button ul {
+  list-style: none; 
+}
+
+.back li {
+  float:left; 
+  margin-left :-40px;
+}
 
 table {
 font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;

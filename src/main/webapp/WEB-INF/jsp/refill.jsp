@@ -9,8 +9,15 @@
  </style>
  </head>
 	 <body>
-	 	<div class="logout">
-		<ul><li><a href="/logout">выйти</a></li></ul>
+	 	<div class="button">
+		<ul>
+			<div class="logout">
+			<li><a href="/logout">выйти</a></li>
+			</div>
+			<div class="back">
+			<li><a href="/main">Назад</a></li>
+			</div>
+		</ul>
 		</div>
 	 	<div class = "form">
 		 <form method="post" action="/refill">

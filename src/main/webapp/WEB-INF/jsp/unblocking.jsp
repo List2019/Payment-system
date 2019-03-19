@@ -12,6 +12,17 @@
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
  </head>
 	 <body>  
+	 	<div class="button">
+		<ul>
+			<div class="logout">
+			<li><a href="/logout">выйти</a></li>
+			</div>
+			<div class="back">
+			<li><a href="/admin">Назад</a></li>
+			</div>
+		</ul>
+		</div>
+		<br><br>
 	 	<table>
 		 		<tr>
 				  <th>id_users</th>
@@ -42,9 +53,11 @@
 		<form method="post" action="/unblocking">
 	    <input name="number_card" type="number" placeholder="Номер карты" required/>
 
+	   	<div class="form">
 	    <form action="">
 	    	<button type="submit">Разблокировать</button>
 		</form>	
+		</div>
 
 		</form>	
 		</div>

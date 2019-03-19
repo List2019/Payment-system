@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class AuthController {
+public class    AuthController {
 
     @Autowired
     private Credit_CardManager creditCardManager;
