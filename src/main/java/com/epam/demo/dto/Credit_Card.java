@@ -1,13 +1,15 @@
 package com.epam.demo.dto;
 
+import java.math.BigDecimal;
+
 public class Credit_Card {
 
     private int id_users;
     private long number_card;
-    private double balance;
+    private BigDecimal balance;
     private boolean block;
 
-    public Credit_Card(int id_users, long number_card, double balance, boolean block) {
+    public Credit_Card(int id_users, long number_card, BigDecimal balance, boolean block) {
         this.id_users = id_users;
         this.number_card = number_card;
         this.balance = balance;
@@ -30,11 +32,11 @@ public class Credit_Card {
         this.number_card = number_card;
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 

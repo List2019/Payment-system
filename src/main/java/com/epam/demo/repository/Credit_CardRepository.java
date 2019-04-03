@@ -6,6 +6,7 @@ package com.epam.demo.repository;
         import org.springframework.jdbc.core.RowMapper;
         import org.springframework.stereotype.Repository;
 
+        import java.math.BigDecimal;
         import java.util.List;
 
 @Repository
@@ -18,18 +19,18 @@ public class Credit_CardRepository implements ICredit_CardRepository{
     private RowMapper<Credit_Card> ROW_MAPPER = (resultSet, rowNumbers) -> new Credit_Card(
             resultSet.getInt("id_users"),
             resultSet.getLong("number_card"),
-            resultSet.getDouble("balance"),
+            resultSet.getBigDecimal("balance"),
             resultSet.getBoolean("block"));
 
-    public List<Credit_Card> checkBalance(double value,long number_card){
-        String sql = "SELECT * FROM epam.credit_card where number_card = ? and balance >= ?; ;";
-        return jdbcTemplate.query(sql, new Object[]{number_card,value}, ROW_MAPPER);
+    public Credit_Card checkBalance(BigDecimal value,long number_card){
+        String sql = "SELECT * FROM epam.credit_card where number_card = ? and balance >= ?;";
+        return jdbcTemplate.queryForObject(sql, new Object[]{number_card,value.intValue()}, ROW_MAPPER);
     }
 
-    public void removeMoney(double value, Credit_Card credit_card){
-        double result = credit_card.getBalance() - value;
+    public void removeMoney(BigDecimal value, Credit_Card credit_card){
+        BigDecimal result = credit_card.getBalance().subtract(value);
         String sql = "UPDATE epam.credit_card SET balance = ? WHERE (number_card = ?);";
-        jdbcTemplate.update(sql,result,credit_card.getNumber_card());
+        jdbcTemplate.update(sql,result.intValue(),credit_card.getNumber_card());
     }
 
     public List<Credit_Card> getCardByNumberCard(long number_card){
@@ -37,10 +38,10 @@ public class Credit_CardRepository implements ICredit_CardRepository{
         return jdbcTemplate.query(sql, new Object[]{number_card}, ROW_MAPPER);
     }
 
-    public void addMoney(double value, long number_card){
-        double result = getCardByNumberCard(number_card).get(0).getBalance() + value;
+    public void addMoney(BigDecimal value, long number_card){
+        BigDecimal result = getCardByNumberCard(number_card).get(0).getBalance().add(value);
         String sql = "UPDATE epam.credit_card SET balance = ? WHERE (number_card = ?);";
-        jdbcTemplate.update(sql,result,number_card);
+        jdbcTemplate.update(sql,result.intValue(),number_card);
     }
 
     public void blockCreditCardByNumberCard(long number_card) {
@@ -52,6 +53,12 @@ public class Credit_CardRepository implements ICredit_CardRepository{
         String sql = "UPDATE epam.credit_card SET block = 0 WHERE (number_card = ?);";
         jdbcTemplate.update(sql, number_card);
     }
+
+    public double getBalanceByNumberCard(long number_card) {
+        String sql = "SELECT balance FROM epam.credit_card where number_card = ? ;";
+        return jdbcTemplate.queryForObject(sql,Double.class,number_card);
+    }
+
 
 
 }

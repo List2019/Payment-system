@@ -69,11 +69,14 @@
   text-align: right;
 }
 
-/*.logout ul {
+.button ul {
   list-style: none; 
-  padding-left: 90%;
-  padding-top: 1%;
-}*/
+}
+
+.back li {
+  float:left; 
+  margin-left :-40px;
+}
 
 .back a {
   text-decoration: none; 
@@ -85,15 +88,6 @@
   border-radius:5px; 
   text-transform: uppercase;
   text-align: left;
-}
-
-.button ul {
-  list-style: none; 
-}
-
-.back li {
-  float:left; 
-  margin-left :-40px;
 }
 
 table {

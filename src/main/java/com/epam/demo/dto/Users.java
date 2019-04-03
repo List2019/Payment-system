@@ -2,6 +2,7 @@ package com.epam.demo.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 public class Users {
 
@@ -111,5 +112,25 @@ public class Users {
                 ", role='" + role + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Users users = (Users) o;
+        return id_users == users.id_users &&
+                number_card == users.number_card &&
+                Objects.equals(name, users.name) &&
+                Objects.equals(last_name, users.last_name) &&
+                Objects.equals(password, users.password) &&
+                Objects.equals(login, users.login) &&
+                Objects.equals(role, users.role) &&
+                Objects.equals(email, users.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_users, name, last_name, number_card, password, login, role, email);
     }
 }

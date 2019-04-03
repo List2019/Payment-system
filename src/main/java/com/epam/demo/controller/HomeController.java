@@ -7,9 +7,12 @@ import com.epam.demo.manager.UserManager;
 import com.epam.demo.service.Credit_CardService;
 import com.epam.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.math.BigDecimal;
 
 @Controller
 public class HomeController {
@@ -47,16 +50,6 @@ public class HomeController {
 
     }
 
-    @GetMapping("/transfer")
-    public ModelAndView transferpage() {
-        ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName("transfer");
-
-        return modelAndView;
-
-    }
-
     @GetMapping("/account_blocking")
     public ModelAndView blockingpage() {
         ModelAndView modelAndView = new ModelAndView();
@@ -68,7 +61,7 @@ public class HomeController {
     }
 
     @PostMapping("/refill")
-    public ModelAndView refill(double value) {
+    public ModelAndView refill(BigDecimal value) {
         ModelAndView modelAndView = new ModelAndView();
 
         Credit_Card currentCard = creditCardService.getCardByNumberCard(userManager.getUser().getNumber_card()).get(0);
@@ -104,29 +97,36 @@ public class HomeController {
 
     }
 
-    @PostMapping("/transfer")
-    public ModelAndView transfer(double value, long number_card,Users user) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        Credit_Card currentCard = creditCardManager.getCredit_card();
-
-        if(currentCard.isBlock()){
-            modelAndView.addObject("message","К сожалению ваш счёт заблокирован");
-            modelAndView.setViewName("refill");
-        }
-        else {
-            if (!creditCardService.checkBalance(value, user.getNumber_card()).isEmpty()) {
-                creditCardService.removeMoney(value, currentCard);
-                creditCardService.addMoney(value, number_card);
-                modelAndView.addObject("message", "Перевод выполнен успешно");
-                modelAndView.setViewName("transfer");
-            }
-            else{
-                modelAndView.addObject("message", "На вашем счету недостаточно средств");
-            }
-        }
-
+    @RequestMapping(value = {"/transfer"}, method = RequestMethod.GET)
+        public ModelAndView transferpage() {
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("transfer");
         return modelAndView;
     }
+
+    @RequestMapping(value = {"/transfer/new_transfer"}, method = RequestMethod.POST)
+        public ModelAndView transfer(BigDecimal value, long number_card) {
+            ModelAndView modelAndView = new ModelAndView();
+
+            Credit_Card currentCard = creditCardManager.getCredit_card();
+
+            if(currentCard.isBlock()){
+                modelAndView.addObject("message","К сожалению ваш счёт заблокирован");
+                modelAndView.setViewName("transfer");
+            }
+            else {
+
+                try{
+                    creditCardService.simpleTransfer(value, number_card, currentCard);
+                    modelAndView.addObject("message", "Перевод выполнен успешно");
+                }
+                catch(EmptyResultDataAccessException ex){
+                    modelAndView.addObject("message", "На вашем счету недостаточно средств");
+                }
+
+            }
+            modelAndView.setViewName("transfer");
+            return modelAndView;
+        }
 
 }
