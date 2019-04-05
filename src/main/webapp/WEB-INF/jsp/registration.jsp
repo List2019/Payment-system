@@ -27,7 +27,7 @@
 
     </c:if>
 	 	<div class = "form">
-		 <form method="post" action="/registration">
+		<form method="post" action="/registration">
 		 	 <input name="name" type="text" placeholder="Имя"required autofocus/>
 		 	 <input name="last_name" type="text" placeholder="Фамилия"required/>
      		 <input name="password" type="password" placeholder="Пароль"required/>

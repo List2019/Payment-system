@@ -39,6 +39,10 @@ public class Users {
         return id_users;
     }
 
+    public String getId_usersString(){
+        return String.valueOf(id_users);
+    }
+
     public void setId_users(int id_users) {
         this.id_users = id_users;
     }

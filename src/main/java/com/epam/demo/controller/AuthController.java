@@ -53,7 +53,7 @@ public class    AuthController {
 
         if(currentUser != null){
             userManager.setUser(currentUser);
-            creditCardManager.setCredit_card(creditCardService.getCardByNumberCard(currentUser.getNumber_card()).get(0));
+            creditCardManager.setCredit_card(creditCardService.getCardByNumberCard(currentUser.getNumber_card()));
             modelAndView.setViewName("redirect:/main");
         }
 

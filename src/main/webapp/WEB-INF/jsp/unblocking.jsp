@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <html>
  <head>
@@ -8,10 +10,10 @@
  <style>
      <%@include file="/WEB-INF/css/main.css"%>
  </style>
- <script src="/WEB-INF/script/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
  </head>
 	 <body>  
+	 	<form:form method="POST" modelAttribute="Number_card" action="/unblocking">
 	 	<div class="button">
 		<ul>
 			<div class="logout">
@@ -33,6 +35,7 @@
 				  <th>login</th>
 				  <th>role</th>
 				  <th>email</th>
+				  <th></th>
 				</tr>
 				<c:forEach var="userIterator" items="${users}">
 				<tr>
@@ -44,23 +47,19 @@
 					<td><a>${userIterator.getLogin()}</a></td>
 					<td><a>${userIterator.getRole()}</a></td>
 					<td><a>${userIterator.getEmail()}</a></td>
-					<td><input type="checkbox" name="id_users" value=${userIterator.getId_users()}><br></td>
+					<td><form:checkbox path="number_card" value="${userIterator.getNumber_card()}" />
+						<br></td>
 				</tr>
 				</c:forEach>
 			</table>
-	
-		<div class="unblock">
-		<form method="post" action="/unblocking">
-	    <input name="number_card" type="number" placeholder="Номер карты" required/>
 
 	   	<div class="form">
-	    <form action="">
+	    <form  action="">
 	    	<button type="submit">Разблокировать</button>
 		</form>	
 		</div>
-
-		</form>	
+		</form:form>
 		</div>
-		${message}
+		${message} 
 	 </body>
 </html>

@@ -64,7 +64,7 @@ public class HomeController {
     public ModelAndView refill(BigDecimal value) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Credit_Card currentCard = creditCardService.getCardByNumberCard(userManager.getUser().getNumber_card()).get(0);
+        Credit_Card currentCard = creditCardService.getCardByNumberCard(userManager.getUser().getNumber_card());
 
         if(currentCard.isBlock()){
             modelAndView.addObject("message","К сожалению ваш счёт заблокирован");
@@ -82,7 +82,7 @@ public class HomeController {
     public ModelAndView blocking(Users user) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Credit_Card currentCard = creditCardService.getCardByNumberCard(userManager.getUser().getNumber_card()).get(0);
+        Credit_Card currentCard = creditCardService.getCardByNumberCard(userManager.getUser().getNumber_card());
 
         if(currentCard.isBlock()){
             modelAndView.addObject("message","Ваша карта уже заблокированна");

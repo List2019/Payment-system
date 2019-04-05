@@ -33,13 +33,13 @@ public class Credit_CardRepository implements ICredit_CardRepository{
         jdbcTemplate.update(sql,result.intValue(),credit_card.getNumber_card());
     }
 
-    public List<Credit_Card> getCardByNumberCard(long number_card){
+    public Credit_Card getCardByNumberCard(long number_card){
         String sql = "SELECT * FROM epam.credit_card where number_card = ? ;";
-        return jdbcTemplate.query(sql, new Object[]{number_card}, ROW_MAPPER);
+        return jdbcTemplate.queryForObject(sql, new Object[]{number_card}, ROW_MAPPER);
     }
 
     public void addMoney(BigDecimal value, long number_card){
-        BigDecimal result = getCardByNumberCard(number_card).get(0).getBalance().add(value);
+        BigDecimal result = getCardByNumberCard(number_card).getBalance().add(value);
         String sql = "UPDATE epam.credit_card SET balance = ? WHERE (number_card = ?);";
         jdbcTemplate.update(sql,result.intValue(),number_card);
     }

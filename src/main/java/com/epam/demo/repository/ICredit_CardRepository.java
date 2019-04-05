@@ -11,7 +11,7 @@ public interface ICredit_CardRepository {
 
     void removeMoney(BigDecimal value, Credit_Card credit_card);
 
-    List<Credit_Card> getCardByNumberCard(long number_card);
+    Credit_Card getCardByNumberCard(long number_card);
 
     void addMoney(BigDecimal value, long number_card);
 

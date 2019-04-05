@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ICredit_CardService {
 
-    List<Credit_Card> getCardByNumberCard(long number_card);
+    Credit_Card getCardByNumberCard(long number_card);
 
     void addMoney(BigDecimal value, long number_card);
 

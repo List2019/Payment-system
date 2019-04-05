@@ -15,7 +15,7 @@ public class Credit_CardService implements ICredit_CardService {
     @Autowired
     private Credit_CardRepository credit_cardRepository;
 
-    public List<Credit_Card> getCardByNumberCard(long number_card) {
+    public Credit_Card getCardByNumberCard(long number_card) {
         return credit_cardRepository.getCardByNumberCard(number_card);
     }
 
