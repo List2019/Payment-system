@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `credit_card`;
 CREATE TABLE `credit_card` (
   `number_card` int(11) NOT NULL,
   `id_users` int(11) DEFAULT NULL,
-  `balance` int(10) NOT NULL,
+  `balance` decimal(10,2) NOT NULL,
   `block` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`number_card`),
   KEY `id_client_idx` (`id_users`),
@@ -39,7 +39,7 @@ CREATE TABLE `credit_card` (
 
 LOCK TABLES `credit_card` WRITE;
 /*!40000 ALTER TABLE `credit_card` DISABLE KEYS */;
-INSERT INTO `credit_card` VALUES (666,19,1000,0),(777,18,1000,0);
+INSERT INTO `credit_card` VALUES (666,19,16000.00,0),(777,18,4985768.00,0);
 /*!40000 ALTER TABLE `credit_card` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -72,4 +72,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-15 15:53:03
+-- Dump completed on 2019-04-17 10:33:51

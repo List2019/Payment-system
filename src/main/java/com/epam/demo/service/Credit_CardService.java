@@ -41,7 +41,6 @@ public class Credit_CardService implements ICredit_CardService {
     public double getBalanceByNumberCard(long number_card){
         return credit_cardRepository.getBalanceByNumberCard(number_card);
     }
-
     public void simpleTransfer(BigDecimal value,long number_card, Credit_Card currentCard){
         credit_cardRepository.checkBalance(value, currentCard.getNumber_card());
         credit_cardRepository.removeMoney(value, currentCard);

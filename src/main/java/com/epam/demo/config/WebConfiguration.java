@@ -1,7 +1,6 @@
 package com.epam.demo.config;
 
 import com.epam.demo.interceptor.AuthInterceptor;
-import com.epam.demo.interceptor.LoggerInterceptor;
 import com.epam.demo.interceptor.RoleInterceptor;
 import com.epam.demo.interceptor.UserNameAwareInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -27,11 +26,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
             return new UserNameAwareInterceptor();
         }
 
-        @Bean
-        public LoggerInterceptor loggerInterceptor() {
-            return new LoggerInterceptor();
-        }
-
         @Override
         public void addInterceptors(InterceptorRegistry registry) {
             registry.addInterceptor(authInterceptor()).addPathPatterns("/**")
@@ -47,7 +41,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
                     .excludePathPatterns("/login",
                             "/registration", "/logout", "/css/**", "/js/**", "/checkLoginExist");
 
-            registry.addInterceptor(loggerInterceptor()).addPathPatterns("/transfer/**");
         }
 
     }

@@ -25,20 +25,16 @@
 		<br><br>
 	 	<table>
 	 	<tr>
-				  <th>id_transaction</th>
-				  <th>id_users</th>
-				  <th>time_transaction</th>
-				  <th>new_balance</th>
-				</tr>
+			<th>operation</th>
+		</tr>
 	 	<c:forEach var="logIterator" items="${logs}">
 			<tr>
-					<td><a>${logIterator.getId_transaction()}</a></td>
-					<td><a>${logIterator.getId_users()}</a></td>
-					<td><a>${logIterator.getTime_transaction()}</a></td>
-					<td><a>${logIterator.getNew_balance()}</a></td>
-			
+					<td><a>${logIterator.toString()}</a></td>	
 			</tr>
 		</c:forEach>
 		</table>
+		<div id="message">
+	    ${message}
+		</div>
 	 </body>
 </html>

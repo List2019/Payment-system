@@ -1,6 +1,5 @@
 package com.epam.demo.controller;
 
-import com.epam.demo.dto.Logger;
 import com.epam.demo.dto.Number_card;
 import com.epam.demo.dto.Users;
 import com.epam.demo.manager.Credit_CardManager;
@@ -9,16 +8,17 @@ import com.epam.demo.service.Credit_CardService;
 import com.epam.demo.service.LoggerService;
 import com.epam.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 @Controller
 public class AdminController {
@@ -76,8 +76,7 @@ public class AdminController {
     }
 
     @RequestMapping("admin/allusers")
-    public ModelAndView alluserspage(HttpServletRequest request,
-                                 @PathVariable(name = "pageId", required = false) String pageId) {
+    public ModelAndView alluserspage() {
         ModelAndView modelAndView = new ModelAndView();
 
         List<Users> users =  userService.getAllUsers();
@@ -91,13 +90,26 @@ public class AdminController {
     }
 
     @RequestMapping("admin/log")
-    public ModelAndView logpage(HttpServletRequest request,
-                                     @PathVariable(name = "pageId", required = false) String pageId) {
+    public ModelAndView logpage() {
+
         ModelAndView modelAndView = new ModelAndView();
 
-        List<Logger> logs = loggerService.getAllLog();
+        try(FileReader fr = new FileReader("logging.log")) {
 
-        modelAndView.addObject("logs", logs);
+            Scanner scan = new Scanner(fr);
+            int i = 1;
+            ArrayList<String> logs = new ArrayList<>();
+
+            while (scan.hasNextLine()) {
+                logs.add(i + ": " + scan.nextLine());
+                i++;
+            }
+
+            modelAndView.addObject("logs",logs);
+
+        } catch (IOException e) {
+            modelAndView.addObject("message", "Файл логирования не найден");
+        }
 
         modelAndView.setViewName("log");
 

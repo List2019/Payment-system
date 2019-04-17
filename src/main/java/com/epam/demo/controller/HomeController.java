@@ -1,10 +1,10 @@
 package com.epam.demo.controller;
 
 import com.epam.demo.dto.Credit_Card;
-import com.epam.demo.dto.Users;
 import com.epam.demo.manager.Credit_CardManager;
 import com.epam.demo.manager.UserManager;
 import com.epam.demo.service.Credit_CardService;
+import com.epam.demo.service.LoggerService;
 import com.epam.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
+
 
 @Controller
 public class HomeController {
@@ -28,6 +29,9 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LoggerService loggerService;
 
 
     @RequestMapping("/main")
@@ -71,7 +75,9 @@ public class HomeController {
         }
         else{
             creditCardService.addMoney(value,userManager.getUser().getNumber_card());
-            modelAndView.addObject("message","Пополнение выполнен успешно, ваш баланс: " + currentCard.getBalance() + "");
+            modelAndView.addObject("message","Пополнение выполнен успешно," +
+                    " ваш баланс: " + currentCard.getBalance() + "");
+            loggerService.refill(currentCard.getNumber_card(),value);
         }
 
         modelAndView.setViewName("refill");
@@ -79,7 +85,7 @@ public class HomeController {
     }
 
     @PostMapping("/account_blocking")
-    public ModelAndView blocking(Users user) {
+    public ModelAndView blocking() {
         ModelAndView modelAndView = new ModelAndView();
 
         Credit_Card currentCard = creditCardService.getCardByNumberCard(userManager.getUser().getNumber_card());
@@ -90,6 +96,7 @@ public class HomeController {
         else{
             creditCardService.blockCreditCardByNumberCard(userManager.getUser().getNumber_card());
             modelAndView.addObject("message","Ваша карта успешно заблокированна");
+            loggerService.blocking(userManager.getUser().getNumber_card());
         }
         modelAndView.setViewName("account_blocking");
 
@@ -104,7 +111,7 @@ public class HomeController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/transfer/new_transfer"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/transfer"}, method = RequestMethod.POST)
         public ModelAndView transfer(BigDecimal value, long number_card) {
             ModelAndView modelAndView = new ModelAndView();
 
@@ -119,6 +126,7 @@ public class HomeController {
                 try{
                     creditCardService.simpleTransfer(value, number_card, currentCard);
                     modelAndView.addObject("message", "Перевод выполнен успешно");
+                    loggerService.transfer(currentCard.getNumber_card(),number_card,value);
                 }
                 catch(EmptyResultDataAccessException ex){
                     modelAndView.addObject("message", "На вашем счету недостаточно средств");

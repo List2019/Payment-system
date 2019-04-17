@@ -59,6 +59,4 @@ public class Credit_CardRepository implements ICredit_CardRepository{
         return jdbcTemplate.queryForObject(sql,Double.class,number_card);
     }
 
-
-
 }
