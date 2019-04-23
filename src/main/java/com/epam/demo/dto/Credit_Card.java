@@ -9,6 +9,9 @@ public class Credit_Card {
     private BigDecimal balance;
     private boolean block;
 
+    public Credit_Card() {
+    }
+
     public Credit_Card(int id_users, long number_card, BigDecimal balance, boolean block) {
         this.id_users = id_users;
         this.number_card = number_card;

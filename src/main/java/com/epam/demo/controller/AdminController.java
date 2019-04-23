@@ -1,6 +1,6 @@
 package com.epam.demo.controller;
 
-import com.epam.demo.dto.Number_card;
+import com.epam.demo.dto.Credit_Card;
 import com.epam.demo.dto.Users;
 import com.epam.demo.manager.Credit_CardManager;
 import com.epam.demo.manager.UserManager;
@@ -12,7 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.apache.log4j.Logger;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class AdminController {
 
         ModelAndView modelAndView = new ModelAndView();
         List<Users> users =  userService.getUsersWhereBillBlocked();
-        modelAndView.addObject("Number_card", new Number_card());
+        modelAndView.addObject("Credit_card", new Credit_Card());
         modelAndView.addObject("users", users);
         modelAndView.setViewName("unblocking");
 
@@ -58,11 +57,11 @@ public class AdminController {
     }
 
     @RequestMapping(value = {"/unblocking"},method = RequestMethod.POST)
-    public ModelAndView unblockingpage(@ModelAttribute("Number_card") Number_card number_card, BindingResult result, ModelMap model){
+    public ModelAndView unblockingpage(@ModelAttribute("Number_card") Credit_Card credit_card, BindingResult result, ModelMap model){
         ModelAndView modelAndView = new ModelAndView();
 
         try{
-            creditCardService.unblockCreditCardByNumberCard(number_card.getNumber_card());
+            creditCardService.unblockCreditCardByNumberCard(credit_card.getNumber_card());
             modelAndView.setViewName("redirect:unblocking");
         }
         catch (Exception ex){

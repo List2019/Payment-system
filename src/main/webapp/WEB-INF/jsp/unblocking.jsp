@@ -13,7 +13,7 @@
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
  </head>
 	 <body>  
-	 	<form:form method="POST" modelAttribute="Number_card" action="/unblocking">
+	 	<form:form method="POST" modelAttribute="Credit_card" action="/unblocking">
 	 	<div class="button">
 		<ul>
 			<div class="logout">
