@@ -5,7 +5,6 @@ import com.epam.demo.dto.Users;
 import com.epam.demo.manager.Credit_CardManager;
 import com.epam.demo.manager.UserManager;
 import com.epam.demo.service.Credit_CardService;
-import com.epam.demo.service.LoggerService;
 import com.epam.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.apache.log4j.Logger;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -34,9 +34,6 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private LoggerService loggerService;
 
     @GetMapping("/admin")
     public ModelAndView adminpage() {

@@ -4,8 +4,8 @@ import com.epam.demo.dto.Credit_Card;
 import com.epam.demo.manager.Credit_CardManager;
 import com.epam.demo.manager.UserManager;
 import com.epam.demo.service.Credit_CardService;
-import com.epam.demo.service.LoggerService;
 import com.epam.demo.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -30,8 +30,7 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private LoggerService loggerService;
+    private static final Logger log = Logger.getLogger(HomeController.class);
 
 
     @RequestMapping("/main")
@@ -77,7 +76,12 @@ public class HomeController {
             creditCardService.addMoney(value,userManager.getUser().getNumber_card());
             modelAndView.addObject("message","Пополнение выполнен успешно," +
                     " ваш баланс: " + currentCard.getBalance() + "");
-            loggerService.refill(currentCard.getNumber_card(),value);
+            try{
+                log.info("Пополнение " + currentCard.getNumber_card() + " на " + value.intValue());
+            }
+            catch (Exception e){
+                log.error("Неизвестная ошибка при логирование пополнения") ;
+            }
         }
 
         modelAndView.setViewName("refill");
@@ -96,7 +100,12 @@ public class HomeController {
         else{
             creditCardService.blockCreditCardByNumberCard(userManager.getUser().getNumber_card());
             modelAndView.addObject("message","Ваша карта успешно заблокированна");
-            loggerService.blocking(userManager.getUser().getNumber_card());
+            try{
+                log.info("Пользователь " + currentCard.getNumber_card() + " заблокировал счёт");
+            }
+            catch (Exception e){
+                log.error("Неизвестная ошибка при логировании блокировки");
+            }
         }
         modelAndView.setViewName("account_blocking");
 
@@ -126,7 +135,12 @@ public class HomeController {
                 try{
                     creditCardService.simpleTransfer(value, number_card, currentCard);
                     modelAndView.addObject("message", "Перевод выполнен успешно");
-                    loggerService.transfer(currentCard.getNumber_card(),number_card,value);
+                    try{
+                        log.info("Перевод от "+ currentCard.getNumber_card() + " к " + number_card + " на сумму "+ value.intValue());
+                    }
+                    catch (Exception e){
+                        log.error("Неизвестная ошибка при логировании перевода");
+                    }
                 }
                 catch(EmptyResultDataAccessException ex){
                     modelAndView.addObject("message", "На вашем счету недостаточно средств");
