@@ -29,15 +29,15 @@
 	 	<div class = "form">
 		<form method="post" action="/registration">
 		 	 <input name="name" type="text" placeholder="Имя"required autofocus/>
-		 	 <input name="last_name" type="text" placeholder="Фамилия"required/>
+		 	 <input name="lastName" type="text" placeholder="Фамилия"required/>
      		 <input name="password" type="password" placeholder="Пароль"required/>
-     		 <input name="number_card" type="number" placeholder="Номер карты"required/>
+     		 <input name="numberCard" type="number" placeholder="Номер карты"required/>
      		 <input id="login" name="login" type="text" placeholder="Логин"required/>
      		 <input name="email" type="text" placeholder="Электронная почта"required/>
        		 <form action="">
     		 <button type="submit">Регистрация</button>
 			 </form>
-		</div>
 		</form>
+        </div>
 	 </body>
 </html>

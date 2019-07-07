@@ -8,8 +8,8 @@
  <style>
      <%@include file="/WEB-INF/css/main.css"%>
  </style>
-  <script src="/WEB-INF/script/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+<%--  <script src="/WEB-INF/script/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>--%>
  </head>
 	 <body>
 	 	<div class="button">

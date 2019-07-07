@@ -21,7 +21,7 @@
 		</ul>
 		</div>
 	 	<div class="form">
-		 <form method="post" action="/account_blocking">
+		 <form method="post" action="/accountBlocking">
 		   <textarea cols="40" rows="5" autofocus maxlength="1000" placeholder="Напишите причину сюда" required></textarea></p>
 			<form action="">
     		 <button>Заблокировать</button>

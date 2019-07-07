@@ -1,6 +1,6 @@
 .main ul {
   list-style: none; 
-  padding-left: 20%;
+  padding-left: 0;
   padding-top: 15%;
 }
 .main a {
@@ -15,7 +15,7 @@
 }
 .main li {
   float:left; 
-  margin-right:20px; 
+  margin-right:10px;
 }
 .form {
   max-width: 360px;
@@ -36,6 +36,21 @@
   box-sizing: border-box;
   font-size: 14px;
 }
+.search {
+  max-width: 700px;
+  margin: 0 auto 100px;
+    text-align: center;
+}
+.search input {
+  font-family: "Roboto", sans-serif;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0; 
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
 .form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
@@ -47,16 +62,13 @@
   font-size: 14px;
   cursor: pointer;
 }
-
 .unblock input {
   width: 50%;
 }
-
 .logout li {
   float:right; 
   margin-right:20px;
 }
-
 .logout a {
   text-decoration: none; 
   background:#4CAF50; 
@@ -68,16 +80,13 @@
   text-transform: uppercase;
   text-align: right;
 }
-
 .button ul {
   list-style: none; 
 }
-
 .back li {
   float:left; 
   margin-left :-40px;
 }
-
 .back a {
   text-decoration: none; 
   background:#4CAF50; 
@@ -89,12 +98,12 @@
   text-transform: uppercase;
   text-align: left;
 }
-
 table {
 font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 font-size: 14px;
 border-collapse: collapse;
 text-align: center;
+margin-left: 100px;
 }
 th, td:first-child {
 background: #4CAF50;
@@ -112,7 +121,6 @@ background: #70CD75;
 th:first-child, td:first-child {
 text-align: left;
 }
-
 input, textarea {
   color: #494949;
   border: 1px solid #e3e3e3;
@@ -125,27 +133,21 @@ input, textarea {
   font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.5;
 }
-
 input:focus {
   border-color: #808080;
   outline: none;
 }
-
 textarea:focus {
   border-color: #808080;
   outline: none;
 }
-
 #error{
   text-align: left;
   position: absolute;
 }
-
 #message{
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
   font-size: 14px;
   text-align: center;
   position: relative;
 }
-
-

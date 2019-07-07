@@ -1,36 +1,43 @@
 package com.epam.demo.service;
 
+import com.epam.demo.dto.User;
 import com.epam.demo.repository.UsersRepository;
-import com.epam.demo.dto.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserService implements IUserService{
+public class UserService implements IUserService {
 
-    @Autowired
     private UsersRepository usersRepository;
 
-    public Users checkLoginAndPassword(String login, String password) {
+    public User checkLoginAndPassword(String login, String password) {
         return usersRepository.checkLoginAndPassword(login, password);
     }
 
-    public void addUsers(Users user) {
+    public void addUsers(User user) {
         usersRepository.addUsers(user);
     }
 
-    public List<Users> getUsersWhereBillBlocked() {
+    public List<User> getUsersWhereBillBlocked() {
         return usersRepository.getUsersWhereBillBlocked();
     }
 
-    public List<Users> getAllUsers() {
+    public List<User> getAllUsers() {
         return usersRepository.getAllUsers();
     }
 
-    public  List<Users> checkUsersByLogin(String login) {
+    public List<User> checkUsersByLogin(String login) {
         return usersRepository.checkUsersByLogin(login);
     }
 
+    public User getUserByNumberCard(Long numberCard) {
+        return usersRepository.getUserByNumberCard(numberCard);
+    }
+
+    @Autowired
+    public UserService(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
 }

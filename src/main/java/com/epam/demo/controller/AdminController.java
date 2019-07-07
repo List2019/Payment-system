@@ -1,18 +1,18 @@
 package com.epam.demo.controller;
 
-import com.epam.demo.dto.Credit_Card;
-import com.epam.demo.dto.Users;
-import com.epam.demo.manager.Credit_CardManager;
+import com.epam.demo.dto.CreditCard;
+import com.epam.demo.dto.User;
+import com.epam.demo.manager.CreditCardManager;
 import com.epam.demo.manager.UserManager;
-import com.epam.demo.service.Credit_CardService;
+import com.epam.demo.service.CreditCardService;
 import com.epam.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,75 +22,117 @@ import java.util.Scanner;
 @Controller
 public class AdminController {
 
-    @Autowired
-    private Credit_CardManager creditCardManager;
-
-    @Autowired
-    private Credit_CardService creditCardService;
-
-    @Autowired
+    private CreditCardManager creditCardManager;
+    private CreditCardService creditCardService;
     private UserManager userManager;
-
-    @Autowired
     private UserService userService;
 
-    @GetMapping("/admin")
-    public ModelAndView adminpage() {
+    @GetMapping("/search")
+    public ModelAndView searchByNumberCard() {
         ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName("admin");
-
+        modelAndView.setViewName("search");
         return modelAndView;
-
     }
 
-    @RequestMapping(value = {"/unblocking"}, method = RequestMethod.GET)
-    public ModelAndView unblockpage() {
+    @GetMapping("/admin")
+    public ModelAndView adminPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("admin");
+        return modelAndView;
+    }
+
+    @GetMapping("/allCard")
+    public ModelAndView allCardPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<CreditCard> cards = creditCardService.getAllCard();
+        modelAndView.addObject("CreditCard", new CreditCard());
+        modelAndView.addObject("cards", cards);
+        modelAndView.setViewName("allCard");
+        return modelAndView;
+    }
+
+    @PostMapping("/search")
+    public ModelAndView search(Long value) {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getUserByNumberCard(value);
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("search");
+        return modelAndView;
+    }
+
+    @PostMapping("/allCard")
+    public ModelAndView allCard(@ModelAttribute("NumberCard") CreditCard creditCard) {
 
         ModelAndView modelAndView = new ModelAndView();
-        List<Users> users =  userService.getUsersWhereBillBlocked();
-        modelAndView.addObject("Credit_card", new Credit_Card());
+        creditCardService.deleteCardByNumber(creditCard.getNumberCard());
+        modelAndView.setViewName("redirect:allCard");
+
+        return modelAndView;
+    }
+
+    @GetMapping("/unblocking")
+    public ModelAndView unblockPage() {
+
+        ModelAndView modelAndView = new ModelAndView();
+       // List<CreditCard> creditCards= new ArrayList<>();
+        List<User> users = userService.getUsersWhereBillBlocked();
+        modelAndView.addObject("CreditCard", new CreditCard());
         modelAndView.addObject("users", users);
         modelAndView.setViewName("unblocking");
 
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/unblocking"},method = RequestMethod.POST)
-    public ModelAndView unblockingpage(@ModelAttribute("Number_card") Credit_Card credit_card, BindingResult result, ModelMap model){
+    @PostMapping("/unblocking")
+    public ModelAndView unblockingPage(@ModelAttribute("NumberCard") CreditCard creditCard) {
         ModelAndView modelAndView = new ModelAndView();
 
-        try{
-            creditCardService.unblockCreditCardByNumberCard(credit_card.getNumber_card());
+        try {
+           /* for(CreditCard iterator: creditCard){
+                creditCardService.unblockCreditCardByNumberCard(iterator.getNumberCard());
+            }*/
+            creditCardService.unblockCreditCardByNumberCard(creditCard.getNumberCard());
             modelAndView.setViewName("redirect:unblocking");
-        }
-        catch (Exception ex){
-            modelAndView.addObject("message","чё то пошло не так");
+        } catch (Exception ex) {
+            modelAndView.addObject("message", "чё то пошло не так");
             modelAndView.setViewName("unblocking");
         }
         return modelAndView;
     }
 
-    @RequestMapping("admin/allusers")
-    public ModelAndView alluserspage() {
+    @RequestMapping(value = "admin/allUsers/{pageId}", method = RequestMethod.GET)
+    public ModelAndView allUsersPage(@PathVariable int pageId, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
 
-        List<Users> users =  userService.getAllUsers();
+        PagedListHolder<User> userList;
 
-        modelAndView.addObject("users", users);
+        if (pageId == 1) {
+            userList = new PagedListHolder<User>();
+            List<User> usersList = userService.getAllUsers();
+            // Setting the source for PagedListHolder
+            userList.setSource(usersList);
+            userList.setPageSize(4);
+            // Setting PagedListHolder instance to session
+            request.getSession().setAttribute("userList", userList);
+        } else {
+            userList = (PagedListHolder<User>) request.getSession().getAttribute("userList");
+            // set the current page number
+            // page number starts from zero in PagedListHolder that's why subtracting 1
+            userList.setPage(pageId - 1);
+        }
 
-        modelAndView.setViewName("allusers");
+        modelAndView.setViewName("allUsers");
 
         return modelAndView;
 
     }
 
     @RequestMapping("admin/log")
-    public ModelAndView logpage() {
+    public ModelAndView logPage() {
 
         ModelAndView modelAndView = new ModelAndView();
 
-        try(FileReader fr = new FileReader("logging.log")) {
+        try (FileReader fr = new FileReader("log.log")) {
 
             Scanner scan = new Scanner(fr);
             int i = 1;
@@ -101,7 +143,7 @@ public class AdminController {
                 i++;
             }
 
-            modelAndView.addObject("logs",logs);
+            modelAndView.addObject("logs", logs);
 
         } catch (IOException e) {
             modelAndView.addObject("message", "Файл логирования не найден");
@@ -111,5 +153,14 @@ public class AdminController {
 
         return modelAndView;
 
+    }
+
+    @Autowired
+    public AdminController(CreditCardManager creditCardManager, CreditCardService creditCardService,
+                           UserManager userManager, UserService userService) {
+        this.creditCardService = creditCardService;
+        this.creditCardManager = creditCardManager;
+        this.userManager = userManager;
+        this.userService = userService;
     }
 }

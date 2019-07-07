@@ -1,17 +1,20 @@
 package com.epam.demo.repository;
 
-import com.epam.demo.dto.Users;
+import com.epam.demo.dto.User;
+
 import java.util.List;
 
 public interface IUsersRepository {
 
-    void addUsers(Users user);
+    void addUsers(User user);
 
-    Users checkLoginAndPassword(String login, String password);
+    User checkLoginAndPassword(String login, String password);
 
-    List<Users> checkUsersByLogin(String login);
+    List<User> checkUsersByLogin(String login);
 
-    List<Users> getAllUsers();
+    List<User> getAllUsers();
 
-    List<Users> getUsersWhereBillBlocked();
+    List<User> getUsersWhereBillBlocked();
+
+    User getUserByNumberCard(Long numberCard);
 }

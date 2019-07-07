@@ -1,153 +1,161 @@
 package com.epam.demo.controller;
 
-import com.epam.demo.dto.Credit_Card;
-import com.epam.demo.manager.Credit_CardManager;
+import com.epam.demo.dto.CreditCard;
+import com.epam.demo.dto.User;
+import com.epam.demo.manager.CreditCardManager;
 import com.epam.demo.manager.UserManager;
-import com.epam.demo.service.Credit_CardService;
+import com.epam.demo.service.CreditCardService;
 import com.epam.demo.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.naming.Binding;
+import javax.validation.Valid;
 import java.math.BigDecimal;
 
 @Controller
 public class HomeController {
 
-    @Autowired
-    private Credit_CardManager creditCardManager;
-
-    @Autowired
-    private Credit_CardService creditCardService;
-
-    @Autowired
+    private CreditCardManager creditCardManager;
+    private CreditCardService creditCardService;
     private UserManager userManager;
-
-    @Autowired
     private UserService userService;
 
     private static final Logger log = Logger.getLogger(HomeController.class);
 
-
     @RequestMapping("/main")
-    public ModelAndView mainpage() {
-
+    public ModelAndView mainPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("main");
-
         return modelAndView;
+    }
 
+    @GetMapping("/createCard")
+    public ModelAndView creditCardPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("createCard");
+        return modelAndView;
     }
 
     @GetMapping("/refill")
-    public ModelAndView refillpage() {
+    public ModelAndView refillPage() {
         ModelAndView modelAndView = new ModelAndView();
-
         modelAndView.setViewName("refill");
-
         return modelAndView;
-
     }
 
-    @GetMapping("/account_blocking")
-    public ModelAndView blockingpage() {
+    @GetMapping("/accountBlocking")
+    public ModelAndView blockingPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("accountBlocking");
+        return modelAndView;
+    }
+
+    @GetMapping("/transfer")
+    public ModelAndView transferPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("transfer");
+        return modelAndView;
+    }
+
+
+    @PostMapping("/createCard")
+    public ModelAndView createCard( CreditCard creditCard, BindingResult bindingResult) {
+
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.setViewName("account_blocking");
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("errors", bindingResult.getAllErrors());
+        } else {
+            if (creditCardService.getCardByNumberCard(creditCard.getNumberCard()) == null) {
+                User currentUser = userManager.getUser();
+                creditCardService.addCreditCard(currentUser, creditCard);
+                modelAndView.addObject("message", "Карта успешно зарегистрирована");
+            } else {
+                modelAndView.addObject("message", "Карта с таким номером уже сущевствует");
+            }
+        }
 
+        modelAndView.setViewName("createCard");
         return modelAndView;
-
     }
 
     @PostMapping("/refill")
     public ModelAndView refill(BigDecimal value) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Credit_Card currentCard = creditCardService.getCardByNumberCard(userManager.getUser().getNumber_card());
+        CreditCard currentCard = creditCardService.getCardByNumberCard(userManager.getUser().getNumberCard());
 
-        if(currentCard.isBlock()){
-            modelAndView.addObject("message","К сожалению ваш счёт заблокирован");
-        }
-        else{
-            creditCardService.addMoney(value,userManager.getUser().getNumber_card());
-            modelAndView.addObject("message","Пополнение выполнен успешно," +
-                    " ваш баланс: " + currentCard.getBalance() + "");
-            try{
-                log.info("Пополнение " + currentCard.getNumber_card() + " на " + value.intValue());
-            }
-            catch (Exception e){
-                log.error("Неизвестная ошибка при логирование пополнения") ;
-            }
+        if (currentCard.isBlock()) {
+            modelAndView.addObject("message", "К сожалению ваш счёт заблокирован");
+        } else {
+            creditCardService.deposit(value, userManager.getUser().getNumberCard());
+            modelAndView.addObject("message", "Пополнение выполнен успешно," +
+                    " ваш баланс: " + creditCardService.getBalanceByNumberCard(currentCard.getNumberCard()) + "");
+            log.info("Пополнение " + currentCard.getNumberCard() + " на " + value.intValue());
+
         }
 
         modelAndView.setViewName("refill");
         return modelAndView;
     }
 
-    @PostMapping("/account_blocking")
+    @PostMapping("/accountBlocking")
     public ModelAndView blocking() {
         ModelAndView modelAndView = new ModelAndView();
 
-        Credit_Card currentCard = creditCardService.getCardByNumberCard(userManager.getUser().getNumber_card());
+        CreditCard currentCard = creditCardService.getCardByNumberCard(userManager.getUser().getNumberCard());
 
-        if(currentCard.isBlock()){
-            modelAndView.addObject("message","Ваша карта уже заблокированна");
+        if (currentCard.isBlock()) {
+            modelAndView.addObject("message", "Ваша карта уже заблокированна");
+        } else {
+            creditCardService.blockCreditCardByNumberCard(userManager.getUser().getNumberCard());
+            modelAndView.addObject("message", "Ваша карта успешно заблокированна");
+            log.info("Пользователь " + currentCard.getNumberCard() + " заблокировал счёт");
         }
-        else{
-            creditCardService.blockCreditCardByNumberCard(userManager.getUser().getNumber_card());
-            modelAndView.addObject("message","Ваша карта успешно заблокированна");
-            try{
-                log.info("Пользователь " + currentCard.getNumber_card() + " заблокировал счёт");
-            }
-            catch (Exception e){
-                log.error("Неизвестная ошибка при логировании блокировки");
-            }
-        }
-        modelAndView.setViewName("account_blocking");
+        modelAndView.setViewName("accountBlocking");
 
         return modelAndView;
 
     }
 
-    @RequestMapping(value = {"/transfer"}, method = RequestMethod.GET)
-        public ModelAndView transferpage() {
-            ModelAndView modelAndView = new ModelAndView();
+    @PostMapping("/transfer")
+    public ModelAndView transfer(BigDecimal value, long numberCard) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        CreditCard from = creditCardManager.getCreditCard();
+        CreditCard to = creditCardService.getCardByNumberCard(numberCard);
+
+        if (from.isBlock()) {
+            modelAndView.addObject("message", "К сожалению ваш счёт заблокирован");
             modelAndView.setViewName("transfer");
+        } else {
+
+            try {
+                creditCardService.simpleTransfer(value, to, from);
+                modelAndView.addObject("message", "Перевод выполнен успешно");
+                log.info("Перевод от " + from.getNumberCard() + " к " + to.getNumberCard() + " на сумму " + value.intValue());
+
+
+            } catch (EmptyResultDataAccessException ex) {
+                modelAndView.addObject("message", "На вашем счету недостаточно средств");
+            }
+
+        }
+        modelAndView.setViewName("transfer");
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/transfer"}, method = RequestMethod.POST)
-        public ModelAndView transfer(BigDecimal value, long number_card) {
-            ModelAndView modelAndView = new ModelAndView();
-
-            Credit_Card currentCard = creditCardManager.getCredit_card();
-
-            if(currentCard.isBlock()){
-                modelAndView.addObject("message","К сожалению ваш счёт заблокирован");
-                modelAndView.setViewName("transfer");
-            }
-            else {
-
-                try{
-                    creditCardService.simpleTransfer(value, number_card, currentCard);
-                    modelAndView.addObject("message", "Перевод выполнен успешно");
-                    try{
-                        log.info("Перевод от "+ currentCard.getNumber_card() + " к " + number_card + " на сумму "+ value.intValue());
-                    }
-                    catch (Exception e){
-                        log.error("Неизвестная ошибка при логировании перевода");
-                    }
-                }
-                catch(EmptyResultDataAccessException ex){
-                    modelAndView.addObject("message", "На вашем счету недостаточно средств");
-                }
-
-            }
-            modelAndView.setViewName("transfer");
-            return modelAndView;
-        }
-
+    @Autowired
+    public HomeController(CreditCardManager creditCardManager, CreditCardService creditCardService, UserManager userManager, UserService userService) {
+        this.creditCardManager = creditCardManager;
+        this.creditCardService = creditCardService;
+        this.userManager = userManager;
+        this.userService = userService;
+    }
 }

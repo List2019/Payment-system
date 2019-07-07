@@ -1,6 +1,6 @@
 package com.epam.demo.interceptor;
 
-import com.epam.demo.dto.Users;
+import com.epam.demo.dto.User;
 import com.epam.demo.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -16,7 +16,7 @@ public class RoleInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        Users currentUser = userManager.getUser();
+        User currentUser = userManager.getUser();
 
         if (!currentUser.getRole().equals("admin")) {
             response.sendRedirect("/main");

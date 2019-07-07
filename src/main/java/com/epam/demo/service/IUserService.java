@@ -1,16 +1,18 @@
 package com.epam.demo.service;
 
-import com.epam.demo.dto.Users;
+import com.epam.demo.dto.User;
 
 import java.util.List;
 
 public interface IUserService {
 
-    Users checkLoginAndPassword(String login, String password);
+    User checkLoginAndPassword(String login, String password);
 
-    void addUsers(Users user);
+    void addUsers(User user);
 
-    List<Users> getUsersWhereBillBlocked();
+    List<User> getUsersWhereBillBlocked();
 
-    List<Users> getAllUsers();
+    List<User> getAllUsers();
+
+    User getUserByNumberCard(Long numberCard);
 }

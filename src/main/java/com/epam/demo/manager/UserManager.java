@@ -1,6 +1,6 @@
 package com.epam.demo.manager;
 
-import com.epam.demo.dto.Users;
+import com.epam.demo.dto.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -8,13 +8,13 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public class UserManager {
 
-    private Users user;
+    private User user;
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

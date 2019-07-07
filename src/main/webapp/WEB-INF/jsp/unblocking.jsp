@@ -10,10 +10,9 @@
  <style>
      <%@include file="/WEB-INF/css/main.css"%>
  </style>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
  </head>
 	 <body>  
-	 	<form:form method="POST" modelAttribute="Credit_card" action="/unblocking">
+	 	<form:form method="POST" modelAttribute="CreditCard" action="/unblocking">
 	 	<div class="button">
 		<ul>
 			<div class="logout">
@@ -27,10 +26,10 @@
 		<br><br>
 	 	<table>
 		 		<tr>
-				  <th>id_users</th>
+				  <th>idUser</th>
 				  <th>name</th>
-				  <th>last_name</th>
-				  <th>number_card</th>
+				  <th>lastName</th>
+				  <th>numberCard</th>
 				  <th>password</th>
 				  <th>login</th>
 				  <th>role</th>
@@ -39,15 +38,15 @@
 				</tr>
 				<c:forEach var="userIterator" items="${users}">
 				<tr>
-					<td><a>${userIterator.getId_users()}</a></td>
+					<td><a>${userIterator.getIdUser()}</a></td>
 					<td><a>${userIterator.getName()}</a></td>
-					<td><a>${userIterator.getLast_name()}</a></td>
-					<td><a>${userIterator.getNumber_card()}</a></td>
+					<td><a>${userIterator.getLastName()}</a></td>
+					<td><a>${userIterator.getNumberCard()}</a></td>
 					<td><a>${userIterator.getPassword()}</a></td>
 					<td><a>${userIterator.getLogin()}</a></td>
 					<td><a>${userIterator.getRole()}</a></td>
 					<td><a>${userIterator.getEmail()}</a></td>
-					<td><form:checkbox path="number_card" value="${userIterator.getNumber_card()}" />
+					<td><form:checkbox path="numberCard" value="${userIterator.getNumberCard()}" />
 						<br></td>
 				</tr>
 				</c:forEach>

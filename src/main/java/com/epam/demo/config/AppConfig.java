@@ -19,4 +19,5 @@ public class AppConfig {
         dataSource.setPassword("password");
         return new JdbcTemplate(dataSource);
     }
+
 }

@@ -22,7 +22,7 @@
 	 	<div class = "form">
 		 <form method="post" action="/transfer">
 		   <input name="value" type="text" required placeholder="Сумма">
-		   <input name="number_card" type="text" required placeholder="Номер карты"> 
+		   <input name="numberCard" type="text" required placeholder="Номер карты">
 		    <form action="#">
     		 <button type="submit">Отправить</button>
 		    </form>

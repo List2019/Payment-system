@@ -2,16 +2,15 @@ package com.epam.demo.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
-public class Users {
+public class User {
 
-    private int id_users;
+    private int idUser;
     @Size(min=2, max=30,message = "Имя должно быть не менее 2 символов и не больше 30")
     private String name;
     @Size(min=2, max=30,message = "Фамилия должно быть не менее 2 символов и не больше 30")
-    private String last_name;
-    private long number_card;
+    private String lastName;
+    private long numberCard;
     @Size(min=5, max=10,message = "Пароль должен быть больше 5 символов и не больше 10")
     private String password;
     @Size(min=2, max=30,message = "Логин должно быть не менее 2 символов и не больше 30")
@@ -20,31 +19,31 @@ public class Users {
     @Email(message = "Это должен быть email")
     private String email;
 
-    public Users(int id_users,String name, String last_name, long number_card, String password, String login, String role, String email) {
-        this.id_users = id_users;
+    public User(int idUser, String name, String lastName, long numberCard, String password, String login, String role, String email) {
+        this.idUser = idUser;
         this.name = name;
-        this.last_name = last_name;
-        this.number_card = number_card;
+        this.lastName = lastName;
+        this.numberCard = numberCard;
         this.password = password;
         this.login = login;
         this.role = role;
         this.email = email;
     }
 
-    public Users(){
+    public User(){
 
     }
 
-    public int getId_users() {
-        return id_users;
+    public int getIdUser() {
+        return idUser;
     }
 
     public String getId_usersString(){
-        return String.valueOf(id_users);
+        return String.valueOf(idUser);
     }
 
-    public void setId_users(int id_users) {
-        this.id_users = id_users;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {
@@ -55,20 +54,20 @@ public class Users {
         this.name = name;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-        public long getNumber_card() {
-        return number_card;
+    public long getNumberCard() {
+        return numberCard;
     }
 
-    public void setNumber_card(long number_card) {
-        this.number_card = number_card;
+    public void setNumberCard(long numberCard) {
+        this.numberCard = numberCard;
     }
 
     public String getPassword() {
@@ -103,38 +102,17 @@ public class Users {
         this.email = email;
     }
 
-
     @Override
     public String toString() {
-        return "Users{" +
-                "id_users=" + id_users +
+        return "User{" +
+                "idUser=" + idUser +
                 ", name='" + name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", number_card=" + number_card +
+                ", lastName='" + lastName + '\'' +
+                ", numberCard=" + numberCard +
                 ", password='" + password + '\'' +
                 ", login='" + login + '\'' +
                 ", role='" + role + '\'' +
                 ", email='" + email + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Users users = (Users) o;
-        return id_users == users.id_users &&
-                number_card == users.number_card &&
-                Objects.equals(name, users.name) &&
-                Objects.equals(last_name, users.last_name) &&
-                Objects.equals(password, users.password) &&
-                Objects.equals(login, users.login) &&
-                Objects.equals(role, users.role) &&
-                Objects.equals(email, users.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id_users, name, last_name, number_card, password, login, role, email);
     }
 }
