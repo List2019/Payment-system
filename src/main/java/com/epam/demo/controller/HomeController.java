@@ -6,6 +6,7 @@ import com.epam.demo.manager.CreditCardManager;
 import com.epam.demo.manager.UserManager;
 import com.epam.demo.service.CreditCardService;
 import com.epam.demo.service.UserService;
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,14 +20,13 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 
 @Controller
+@Log4j
 public class HomeController {
 
     private CreditCardManager creditCardManager;
     private CreditCardService creditCardService;
     private UserManager userManager;
     private UserService userService;
-
-    private static final Logger log = Logger.getLogger(HomeController.class);
 
     @RequestMapping("/main")
     public ModelAndView mainPage() {
@@ -98,7 +98,6 @@ public class HomeController {
             modelAndView.addObject("message", "Пополнение выполнен успешно," +
                     " ваш баланс: " + creditCardService.getBalanceByNumberCard(currentCard.getNumberCard()) + "");
             log.info("Пополнение " + currentCard.getNumberCard() + " на " + value.intValue());
-
         }
 
         modelAndView.setViewName("refill");
