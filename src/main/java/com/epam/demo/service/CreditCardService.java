@@ -1,7 +1,7 @@
 package com.epam.demo.service;
 
-import com.epam.demo.dto.CreditCard;
-import com.epam.demo.dto.User;
+import com.epam.demo.entity.CreditCard;
+import com.epam.demo.entity.User;
 import com.epam.demo.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,74 +10,68 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class CreditCardService implements ICreditCardService {
+public class CreditCardService implements ICreditCardService{
 
     private CreditCardRepository creditCardRepository;
 
-    public CreditCard getCardByNumberCard(long numberCard) {
-        return creditCardRepository.getCardByNumberCard(numberCard);
+    public void deposit(BigDecimal value, long numberCard){
+        CreditCard currentCard = creditCardRepository.findCreditCardByNumberCard(numberCard);
+        BigDecimal result = currentCard.getBalance().add(value);
+        creditCardRepository.setBalance(result.intValue(),numberCard);
     }
 
-    public void deposit(BigDecimal value, long numberCard) {
-        creditCardRepository.deposit(value, getCardByNumberCard(numberCard));
+    public void withdraw(BigDecimal value, long numberCard){
+        CreditCard currentCard = creditCardRepository.findCreditCardByNumberCard(numberCard);
+        BigDecimal result = currentCard.getBalance().subtract(value);
+        creditCardRepository.setBalance(result.intValue(),numberCard);
     }
 
-    public void blockCreditCardByNumberCard(long numberCard) {
-        creditCardRepository.blockCreditCardByNumberCard(numberCard);
+    public CreditCard getCardByNumberCard(long numberCard){
+        return creditCardRepository.findCreditCardByNumberCard(numberCard);
     }
 
-    public CreditCard checkBalance(BigDecimal value, long numberCard) {
-        return creditCardRepository.checkBalance(value, numberCard);
+    public double getBalanceByNumberCard(long numberCard){
+        return creditCardRepository.findCreditCardByNumberCard(numberCard).getBalance().intValue();
     }
 
-    public void withdraw(BigDecimal value, CreditCard currentCard) {
-        creditCardRepository.withdraw(value, currentCard);
+    public int getIdByNumberCard(long numberCard){
+        CreditCard tempCreditCard =  creditCardRepository.findCreditCardByNumberCard(numberCard);
+        return Math.toIntExact(tempCreditCard.getIdUsers());
     }
 
-    public void unblockCreditCardByNumberCard(long numberCard) {
-        creditCardRepository.unblockCreditCardByNumberCard(numberCard);
+    public void deleteCardByNumber(Long numberCard){
+        creditCardRepository.deleteCardByNumberCard(numberCard);
     }
 
-    public double getBalanceByNumberCard(long numberCard) {
-        return creditCardRepository.getBalanceByNumberCard(numberCard);
+    public List<CreditCard> getAllCreditCard(){
+        return (List<CreditCard>) creditCardRepository.findAll();
     }
 
-    public void simpleTransfer(BigDecimal value, CreditCard to, CreditCard from) {
-        CreditCard first = from;
-        CreditCard second = to;
-
-        if (first.getIdUsers() < second.getIdUsers()) {
-            first = to;
-            second = from;
-        }
-        synchronized (first) {
-            synchronized (second) {
-                creditCardRepository.checkBalance(value, from.getNumberCard());
-                creditCardRepository.withdraw(value, from);
-                creditCardRepository.deposit(value, to);
-            }
-        }
-
+    public void addCreditCard(User user, CreditCard creditCard){
+        creditCard.setIdUsers(user.getIdUsers());
+        creditCardRepository.save(creditCard);
     }
 
-    public void addCreditCard(User user, CreditCard creditCard) {
-        creditCardRepository.addCreditCard(user, creditCard);
+    public void blockCreditCardByNumberCard(long numberCard){
+        creditCardRepository.setBlock(true, numberCard);
     }
 
-    public List<CreditCard> getAllCard() {
-        return creditCardRepository.getAllCard();
+    public void unblockCreditCardByNumberCard(long numberCard){
+        creditCardRepository.setBlock(false, numberCard);
     }
 
-    public void deleteCardByNumber(Long numberCard) {
-        creditCardRepository.deleteCardByNumber(numberCard);
+    public void simpleTransfer(BigDecimal value, CreditCard to, CreditCard from){
+        withdraw(value,from.getNumberCard());
+        deposit(value,to.getNumberCard());
     }
 
-    public int getIdByNumberCard(long numberCard) {
-        return creditCardRepository.getIdByNumberCard(numberCard);
+    public boolean checkBalance(BigDecimal value, long numberCard){
+        CreditCard tempCreditCard = creditCardRepository.findCreditCardByNumberCard(numberCard);
+        return tempCreditCard.getBalance().compareTo(value) >= 0;
     }
 
     @Autowired
-    public CreditCardService(CreditCardRepository creditCardRepository) {
+    public CreditCardService(CreditCardRepository creditCardRepository){
         this.creditCardRepository = creditCardRepository;
     }
 }

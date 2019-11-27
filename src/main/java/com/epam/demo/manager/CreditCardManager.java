@@ -1,6 +1,6 @@
 package com.epam.demo.manager;
 
-import com.epam.demo.dto.CreditCard;
+import com.epam.demo.entity.CreditCard;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 

@@ -1,7 +1,7 @@
 package com.epam.demo.controller;
 
-import com.epam.demo.dto.CreditCard;
-import com.epam.demo.dto.User;
+import com.epam.demo.entity.CreditCard;
+import com.epam.demo.entity.User;
 import com.epam.demo.manager.CreditCardManager;
 import com.epam.demo.manager.UserManager;
 import com.epam.demo.service.CreditCardService;
@@ -44,7 +44,7 @@ public class AdminController {
     @GetMapping("/allCard")
     public ModelAndView allCardPage() {
         ModelAndView modelAndView = new ModelAndView();
-        List<CreditCard> cards = creditCardService.getAllCard();
+        List<CreditCard> cards = creditCardService.getAllCreditCard();
         modelAndView.addObject("CreditCard", new CreditCard());
         modelAndView.addObject("cards", cards);
         modelAndView.setViewName("allCard");
@@ -52,9 +52,9 @@ public class AdminController {
     }
 
     @PostMapping("/search")
-    public ModelAndView search(Long value) {
+    public ModelAndView search(Long numberCard) {
         ModelAndView modelAndView = new ModelAndView();
-        User user = userService.getUserByNumberCard(value);
+        User user = userService.findUserByNumberCard(numberCard);
         modelAndView.addObject("user", user);
         modelAndView.setViewName("search");
         return modelAndView;
@@ -70,11 +70,11 @@ public class AdminController {
         return modelAndView;
     }
 
+
     @GetMapping("/unblocking")
     public ModelAndView unblockPage() {
 
         ModelAndView modelAndView = new ModelAndView();
-       // List<CreditCard> creditCards= new ArrayList<>();
         List<User> users = userService.getUsersWhereBillBlocked();
         modelAndView.addObject("CreditCard", new CreditCard());
         modelAndView.addObject("users", users);
@@ -88,9 +88,10 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
 
         try {
-           /* for(CreditCard iterator: creditCard){
+            for (CreditCard iterator : creditCard) {
                 creditCardService.unblockCreditCardByNumberCard(iterator.getNumberCard());
-            }*/
+            }
+
             creditCardService.unblockCreditCardByNumberCard(creditCard.getNumberCard());
             modelAndView.setViewName("redirect:unblocking");
         } catch (Exception ex) {

@@ -1,6 +1,6 @@
 package com.epam.demo.service;
 
-import com.epam.demo.dto.User;
+import com.epam.demo.entity.User;
 
 import java.util.List;
 
@@ -14,5 +14,7 @@ public interface IUserService {
 
     List<User> getAllUsers();
 
-    User getUserByNumberCard(Long numberCard);
+    User findUserByNumberCard(Long numberCard);
+
+    User checkUsersByLogin(String login);
 }

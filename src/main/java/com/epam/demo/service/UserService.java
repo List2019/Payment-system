@@ -1,7 +1,7 @@
 package com.epam.demo.service;
 
-import com.epam.demo.dto.User;
-import com.epam.demo.repository.UsersRepository;
+import com.epam.demo.entity.User;
+import com.epam.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,34 +10,33 @@ import java.util.List;
 @Service
 public class UserService implements IUserService {
 
-    private UsersRepository usersRepository;
+    private UserRepository userRepository;
 
-    public User checkLoginAndPassword(String login, String password) {
-        return usersRepository.checkLoginAndPassword(login, password);
+    public User checkLoginAndPassword(String login, String password){
+        return userRepository.findUserByLoginAndPassword(login,password);
     }
 
-    public void addUsers(User user) {
-        usersRepository.addUsers(user);
+    public void addUsers(User user){ userRepository.save(user);
     }
 
-    public List<User> getUsersWhereBillBlocked() {
-        return usersRepository.getUsersWhereBillBlocked();
+    public User findUserByNumberCard(Long numberCard){
+        return userRepository.findUserByNumberCard(numberCard);
     }
 
-    public List<User> getAllUsers() {
-        return usersRepository.getAllUsers();
+    public List<User> getAllUsers(){
+        return (List<User>) userRepository.findAll();
     }
 
-    public List<User> checkUsersByLogin(String login) {
-        return usersRepository.checkUsersByLogin(login);
+    public List<User> getUsersWhereBillBlocked(){
+        return userRepository.getUsersWhereBillBlocked();
     }
 
-    public User getUserByNumberCard(Long numberCard) {
-        return usersRepository.getUserByNumberCard(numberCard);
+    public User checkUsersByLogin(String login){
+        return userRepository.findUserByLogin(login);
     }
 
     @Autowired
-    public UserService(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
     }
 }

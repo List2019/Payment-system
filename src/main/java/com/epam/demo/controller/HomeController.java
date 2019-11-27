@@ -1,13 +1,12 @@
 package com.epam.demo.controller;
 
-import com.epam.demo.dto.CreditCard;
-import com.epam.demo.dto.User;
+import com.epam.demo.entity.CreditCard;
+import com.epam.demo.entity.User;
 import com.epam.demo.manager.CreditCardManager;
 import com.epam.demo.manager.UserManager;
 import com.epam.demo.service.CreditCardService;
 import com.epam.demo.service.UserService;
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -15,8 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.naming.Binding;
-import javax.validation.Valid;
 import java.math.BigDecimal;
 
 @Controller

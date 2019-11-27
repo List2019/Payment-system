@@ -1,7 +1,7 @@
 package com.epam.demo.service;
 
-import com.epam.demo.dto.CreditCard;
-import com.epam.demo.dto.User;
+import com.epam.demo.entity.CreditCard;
+import com.epam.demo.entity.User;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,7 +12,7 @@ public interface ICreditCardService {
 
     void deleteCardByNumber(Long numberCard);
 
-    List<CreditCard> getAllCard();
+    List<CreditCard> getAllCreditCard();
 
     void addCreditCard (User user, CreditCard creditCard);
 
@@ -24,9 +24,9 @@ public interface ICreditCardService {
 
     void unblockCreditCardByNumberCard(long numberCard);
 
-    CreditCard checkBalance(BigDecimal value, long numberCard);
+    boolean checkBalance(BigDecimal value, long numberCard);
 
-    void withdraw(BigDecimal value, CreditCard currentCard);
+    void withdraw(BigDecimal value, long numberCard);
 
     double getBalanceByNumberCard(long numberCard);
 

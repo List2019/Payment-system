@@ -1,6 +1,6 @@
 package com.epam.demo.controller;
 
-import com.epam.demo.dto.User;
+import com.epam.demo.entity.User;
 import com.epam.demo.manager.CreditCardManager;
 import com.epam.demo.manager.UserManager;
 import com.epam.demo.service.CreditCardService;
@@ -21,8 +21,8 @@ public class AuthController {
 
     private CreditCardManager creditCardManager;
     private CreditCardService creditCardService;
-    private UserManager userManager;
     private UserService userService;
+    private UserManager userManager;
 
     @GetMapping("/login")
     public ModelAndView getLoginPage() {
@@ -45,11 +45,10 @@ public class AuthController {
         request.getSession().invalidate();
         return modelAndView;
     }
-
     @ResponseBody
     @GetMapping("/checkLoginExist")
     public boolean checkLoginExist(String login) {
-        return userService.checkUsersByLogin(login).isEmpty();
+        return userService.checkUsersByLogin(login) != null;
     }
 
     @PostMapping("/login")
@@ -84,7 +83,8 @@ public class AuthController {
     }
 
     @Autowired
-    public AuthController(CreditCardManager creditCardManager, CreditCardService creditCardService, UserManager userManager, UserService userService) {
+    public AuthController(CreditCardManager creditCardManager, CreditCardService creditCardService,
+                          UserManager userManager,  UserService userService) {
         this.creditCardManager = creditCardManager;
         this.creditCardService = creditCardService;
         this.userManager = userManager;

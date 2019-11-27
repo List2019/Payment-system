@@ -1,3 +1,4 @@
+/*
 package com.epam.demo.config;
 
 import com.epam.demo.interceptor.AuthInterceptor;
@@ -44,3 +45,4 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         }
 
     }
+*/

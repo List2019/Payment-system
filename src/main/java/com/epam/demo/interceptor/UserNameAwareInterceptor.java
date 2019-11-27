@@ -1,9 +1,10 @@
+/*
 package com.epam.demo.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.demo.dto.User;
+import com.epam.demo.entity.User;
 import com.epam.demo.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -25,3 +26,4 @@ public class UserNameAwareInterceptor implements HandlerInterceptor {
     }
 
 }
+*/

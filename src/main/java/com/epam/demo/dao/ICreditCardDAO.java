@@ -1,12 +1,13 @@
-package com.epam.demo.repository;
+/*
+package com.epam.demo.dao;
 
-import com.epam.demo.dto.CreditCard;
-import com.epam.demo.dto.User;
+import com.epam.demo.entity.CreditCard;
+import com.epam.demo.entity.User;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface ICreditCardRepository {
+public interface ICreditCardDAO {
 
     int getIdByNumberCard(long number_card);
 
@@ -31,3 +32,4 @@ public interface ICreditCardRepository {
     double getBalanceByNumberCard(long number_card);
 
 }
+*/
