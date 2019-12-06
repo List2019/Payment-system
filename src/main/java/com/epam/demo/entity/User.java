@@ -55,7 +55,7 @@ public class User {
     @Getter
     @Setter
     @Column(name = "role")
-    private boolean role;
+    private String role;
 
     @Getter
     @Setter

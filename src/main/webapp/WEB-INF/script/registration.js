@@ -6,11 +6,11 @@ $('document').ready(function(){
      	data:{'login':$("#login").val()
         }  
         }).done(function (msg) {
-     	if(msg == true){
-     		$("#login").css("background-color","green");
+     	if(msg == true) {
+     		$("#login").css("background-color","red");
      	}
      	else {
-     		$("#login").css("background-color","red");
+     		$("#login").css("background-color","green");
      	}
    });
 });

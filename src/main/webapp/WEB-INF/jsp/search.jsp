@@ -43,7 +43,7 @@
     </tr>
 
         <tr>
-            <td><a>${user.getIdUser()}</a></td>
+            <td><a>${user.getIdUsers()}</a></td>
             <td><a>${user.getName()}</a></td>
             <td><a>${user.getLastName()}</a></td>
             <td><a>${user.getNumberCard()}</a></td>

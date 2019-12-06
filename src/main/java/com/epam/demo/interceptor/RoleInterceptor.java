@@ -1,4 +1,3 @@
-/*
 package com.epam.demo.interceptor;
 
 import com.epam.demo.entity.User;
@@ -28,4 +27,4 @@ public class RoleInterceptor implements HandlerInterceptor {
 
     }
 
-}*/
+}

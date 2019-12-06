@@ -38,7 +38,7 @@
 				</tr>
 				<c:forEach var="userIterator" items="${users}">
 				<tr>
-					<td><a>${userIterator.getIdUser()}</a></td>
+					<td><a>${userIterator.getIdUsers()}</a></td>
 					<td><a>${userIterator.getName()}</a></td>
 					<td><a>${userIterator.getLastName()}</a></td>
 					<td><a>${userIterator.getNumberCard()}</a></td>

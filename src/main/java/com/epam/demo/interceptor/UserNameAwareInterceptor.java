@@ -1,4 +1,3 @@
-/*
 package com.epam.demo.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,4 +25,3 @@ public class UserNameAwareInterceptor implements HandlerInterceptor {
     }
 
 }
-*/

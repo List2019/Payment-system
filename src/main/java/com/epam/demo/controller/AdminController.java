@@ -86,12 +86,7 @@ public class AdminController {
     @PostMapping("/unblocking")
     public ModelAndView unblockingPage(@ModelAttribute("NumberCard") CreditCard creditCard) {
         ModelAndView modelAndView = new ModelAndView();
-
         try {
-            for (CreditCard iterator : creditCard) {
-                creditCardService.unblockCreditCardByNumberCard(iterator.getNumberCard());
-            }
-
             creditCardService.unblockCreditCardByNumberCard(creditCard.getNumberCard());
             modelAndView.setViewName("redirect:unblocking");
         } catch (Exception ex) {
@@ -104,9 +99,7 @@ public class AdminController {
     @RequestMapping(value = "admin/allUsers/{pageId}", method = RequestMethod.GET)
     public ModelAndView allUsersPage(@PathVariable int pageId, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
-
         PagedListHolder<User> userList;
-
         if (pageId == 1) {
             userList = new PagedListHolder<User>();
             List<User> usersList = userService.getAllUsers();
@@ -121,20 +114,14 @@ public class AdminController {
             // page number starts from zero in PagedListHolder that's why subtracting 1
             userList.setPage(pageId - 1);
         }
-
         modelAndView.setViewName("allUsers");
-
         return modelAndView;
-
     }
 
     @RequestMapping("admin/log")
     public ModelAndView logPage() {
-
         ModelAndView modelAndView = new ModelAndView();
-
         try (FileReader fr = new FileReader("log.log")) {
-
             Scanner scan = new Scanner(fr);
             int i = 1;
             ArrayList<String> logs = new ArrayList<>();
@@ -143,17 +130,12 @@ public class AdminController {
                 logs.add(i + ": " + scan.nextLine());
                 i++;
             }
-
             modelAndView.addObject("logs", logs);
-
         } catch (IOException e) {
             modelAndView.addObject("message", "Файл логирования не найден");
         }
-
         modelAndView.setViewName("log");
-
         return modelAndView;
-
     }
 
     @Autowired
