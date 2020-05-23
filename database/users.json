@@ -1,0 +1,122 @@
+[{
+  "_id": {
+    "$oid": "5ec8bf809f68070e54bae7b6"
+  },
+  "name": "Александр",
+  "last_name": "Матвеев",
+  "number_card": 777,
+  "password": "123",
+  "login": "sasha",
+  "role": "admin",
+  "email": "vrnvr@bk.ru"
+},{
+  "_id": {
+    "$oid": "5ec8bf8e9f68070e54bae7b7"
+  },
+  "name": "Иван",
+  "last_name": "Иванов",
+  "number_card": 666,
+  "password": "321",
+  "login": "ivan",
+  "role": "user",
+  "email": "abc@mail.ru"
+},{
+  "_id": {
+    "$oid": "5ec8bf9c9f68070e54bae7b8"
+  },
+  "name": "Анна ",
+  "last_name": "Семакина",
+  "number_card": 111,
+  "password": "0000",
+  "login": "anna",
+  "role": "user",
+  "email": "anna@mail.ru"
+},{
+  "_id": {
+    "$oid": "5ec8bfa49f68070e54bae7b9"
+  },
+  "name": "Вадим ",
+  "last_name": "Петров",
+  "number_card": 222,
+  "password": "0000",
+  "login": "vadim",
+  "role": "user",
+  "email": "vadim@mail.ru"
+},{
+  "_id": {
+    "$oid": "5ec8bfad9f68070e54bae7ba"
+  },
+  "name": "Евгения",
+  "last_name": "Старкова",
+  "number_card": 333,
+  "password": "0000",
+  "login": "egunia",
+  "role": "user",
+  "email": "egunia@mail.ru"
+},{
+  "_id": {
+    "$oid": "5ec8bfb59f68070e54bae7bb"
+  },
+  "name": "Тихон",
+  "last_name": "Радонежский",
+  "number_card": 444,
+  "password": "0000",
+  "login": "tihon",
+  "role": "user",
+  "email": "tihon@mail.ru"
+},{
+  "_id": {
+    "$oid": "5ec8bfbd9f68070e54bae7bc"
+  },
+  "name": "Василий ",
+  "last_name": "Пупкин",
+  "number_card": 555,
+  "password": "0000",
+  "login": "vasyia",
+  "role": "user",
+  "email": "vasyia@mail.ru"
+},{
+  "_id": {
+    "$oid": "5ec8bfc49f68070e54bae7bd"
+  },
+  "name": "Феофан",
+  "last_name": "Мефодьевич",
+  "number_card": 888,
+  "password": "0000",
+  "login": "feofan",
+  "role": "user",
+  "email": "feofan@mail.ru"
+},{
+  "_id": {
+    "$oid": "5ec8bfcb9f68070e54bae7be"
+  },
+  "name": "Ян ",
+  "last_name": "Штольц",
+  "number_card": 999,
+  "password": "0000",
+  "login": "yan",
+  "role": "user",
+  "email": "yan@mail.ru"
+},{
+  "_id": {
+    "$oid": "5ec8bfd89f68070e54bae7bf"
+  },
+  "name": "Иван ",
+  "last_name": "Иванов",
+  "number_card": 123,
+  "password": "0000",
+  "login": "ivan",
+  "role": "user",
+  "email": "ivan@mail.ru"
+},{
+  "_id": {
+    "$oid": "5ec8bfe19f68070e54bae7c0"
+  },
+  "name": "bvcx",
+  "last_name": "gfds",
+  "number_card": 432,
+  "password": "12345",
+  "login": "adds",
+  "role": "user",
+  "email": "adds@mail.ru"
+}]
