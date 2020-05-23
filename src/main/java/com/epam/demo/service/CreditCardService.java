@@ -58,6 +58,10 @@ public class CreditCardService implements ICreditCardService {
     }
 
     public List<CreditCard> getAllCreditCard() {
+        /*
+        Эта свистопляска тут для того, чтобы выполнить пункт в агрегацией. 
+        Нормально её впихнуть не получилось, так как у коллекции тип Document
+        */
         MongoCollection<Document> credit_card = mongoTemplate.getCollection("credit_card");
 
         AggregateIterable<Document> result = credit_card.aggregate(Collections.singletonList(
