@@ -59,7 +59,7 @@ public class CreditCardService implements ICreditCardService {
 
     public List<CreditCard> getAllCreditCard() {
         /*
-        Эта свистопляска тут для того, чтобы выполнить пункт в агрегацией. 
+        Эта свистопляска тут для того, чтобы выполнить пункт c агрегацией. 
         Нормально её впихнуть не получилось, так как у коллекции тип Document
         */
         MongoCollection<Document> credit_card = mongoTemplate.getCollection("credit_card");
