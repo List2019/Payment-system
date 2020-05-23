@@ -1,20 +1,22 @@
 package com.epam.demo.repository;
 
 import com.epam.demo.entity.User;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends MongoRepository<User, Long> {
 
-    @Query(value = "SELECT users.* FROM epam.users, credit_card WHERE" +
-            " users.id_users = credit_card.id_users AND credit_card.block = 1;", nativeQuery = true)
-    List<User> getUsersWhereBillBlocked();
-    User findUserByLoginAndPassword(String login, String password);
-    User findUserByNumberCard(Long numberCard);
-    User findUserByLogin(String login);
+    //TO-DO тут надо подумать
+    /*@Query("{login: ?0, password:?0}")
+    List<User> getUsersWhereBillBlocked();*/
+
+    User findByLoginAndPassword(String login, String password);
+
+    @Query("{number_card: ?0}")
+    User findByCardNumber(int numberCard);
+
+    User findByLogin(String login);
 
 }

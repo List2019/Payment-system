@@ -1,19 +1,18 @@
 package com.epam.demo.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.math.BigInteger;
 
-@Entity
-@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@Document(collection = "users")
 public class User {
 
     public User(String password, String login) {
@@ -21,45 +20,23 @@ public class User {
         this.login = login;
     }
 
-    @Getter
-    @Setter
     @Id
-    @Column(name = "id_users")
-    private long idUsers;
+    private BigInteger idUsers;
 
-    @Getter
-    @Setter
-    @Column(name = "name")
     private String name;
 
-    @Getter
-    @Setter
-    @Column(name = "last_name")
+    @Field("last_name")
     private String lastName;
 
-    @Getter
-    @Setter
-    @Column(name = "number_card")
-    private long numberCard;
+    @Field("number_card")
+    private int numberCard;
 
-    @Getter
-    @Setter
-    @Column(name = "password")
     private String password;
 
-    @Getter
-    @Setter
-    @Column(name = "login")
     private String login;
 
-    @Getter
-    @Setter
-    @Column(name = "role")
     private String role;
 
-    @Getter
-    @Setter
-    @Column(name = "email")
     private String email;
 
 

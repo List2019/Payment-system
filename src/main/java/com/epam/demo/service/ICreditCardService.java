@@ -8,27 +8,27 @@ import java.util.List;
 
 public interface ICreditCardService {
 
-    int getIdByNumberCard(long numberCard);
+    int getIdByNumberCard(int numberCard);
 
-    void deleteCardByNumber(Long numberCard);
+    void deleteCardByNumber(int numberCard);
 
     List<CreditCard> getAllCreditCard();
 
     void addCreditCard (User user, CreditCard creditCard);
 
-    CreditCard getCardByNumberCard(long numberCard);
+    CreditCard getCardByNumberCard(int numberCard);
 
-    void deposit(BigDecimal value, long numberCard);
+    void deposit(BigDecimal value, int numberCard);
 
-    void blockCreditCardByNumberCard(long numberCard);
+    void blockCreditCardByNumberCard(int numberCard);
 
-    void unblockCreditCardByNumberCard(long numberCard);
+    void unblockCreditCardByNumberCard(int numberCard);
 
-    boolean checkBalance(BigDecimal value, long numberCard);
+    boolean isBalancePositive(BigDecimal value, int numberCard);
 
-    void withdraw(BigDecimal value, long numberCard);
+    void withdraw(BigDecimal value, int numberCard);
 
-    double getBalanceByNumberCard(long numberCard);
+    double getBalanceByNumberCard(int numberCard);
 
     void simpleTransfer(BigDecimal value, CreditCard to, CreditCard from);
 

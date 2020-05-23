@@ -10,11 +10,11 @@ public interface IUserService {
 
     void addUsers(User user);
 
-    List<User> getUsersWhereBillBlocked();
+    //List<User> getUsersWhereBillBlocked();
 
     List<User> getAllUsers();
 
-    User findUserByNumberCard(Long numberCard);
+    User findUserByNumberCard(int numberCard);
 
     User checkUsersByLogin(String login);
 }

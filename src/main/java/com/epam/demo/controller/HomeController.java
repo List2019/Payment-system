@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
@@ -121,7 +123,7 @@ public class HomeController {
     }
 
     @PostMapping("/transfer")
-    public ModelAndView transfer(BigDecimal value, long numberCard) {
+    public ModelAndView transfer(BigDecimal value, int numberCard) {
         ModelAndView modelAndView = new ModelAndView();
 
         CreditCard from = creditCardManager.getCreditCard();

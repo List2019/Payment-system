@@ -1,41 +1,29 @@
 package com.epam.demo.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
-@Entity
-@Table(name = "credit_card")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreditCard{
-
-    @Column(name = "id_users")
-    @Getter
-    @Setter
-    private long idUsers;
+@Data
+@Document(collection = "credit_card")
+public class CreditCard {
 
     @Id
-    @Column(name = "number_card")
-    @Getter
-    @Setter
-    private long numberCard;
+    private BigInteger idUsers;
 
-    @Column(name = "balance")
-    @Getter
-    @Setter
+    @Field("number_card")
+    private int numberCard;
+
     private BigDecimal balance;
 
-    @Column(name = "block")
-    @Getter
-    @Setter
     private boolean block;
 
 }

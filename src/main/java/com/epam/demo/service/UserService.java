@@ -13,26 +13,28 @@ public class UserService implements IUserService {
     private UserRepository userRepository;
 
     public User checkLoginAndPassword(String login, String password){
-        return userRepository.findUserByLoginAndPassword(login,password);
+        return userRepository.findByLoginAndPassword(login,password);
     }
 
     public void addUsers(User user){ userRepository.save(user);
     }
 
-    public User findUserByNumberCard(Long numberCard){
-        return userRepository.findUserByNumberCard(numberCard);
+    public User findUserByNumberCard(int numberCard){
+        return userRepository.findByCardNumber(numberCard);
     }
 
     public List<User> getAllUsers(){
-        return (List<User>) userRepository.findAll();
+        return userRepository.findAll();
     }
 
-    public List<User> getUsersWhereBillBlocked(){
+   /* public List<User> getUsersWhereBillBlocked(){
+        List<User> users = userRepository.findAll();
         return userRepository.getUsersWhereBillBlocked();
-    }
+    }*/
+
 
     public User checkUsersByLogin(String login){
-        return userRepository.findUserByLogin(login);
+        return userRepository.findByLogin(login);
     }
 
     @Autowired

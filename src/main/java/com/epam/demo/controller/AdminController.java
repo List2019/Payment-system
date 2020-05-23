@@ -54,7 +54,7 @@ public class AdminController {
     @PostMapping("/search")
     public ModelAndView search(Long numberCard) {
         ModelAndView modelAndView = new ModelAndView();
-        User user = userService.findUserByNumberCard(numberCard);
+        User user = userService.findUserByNumberCard(numberCard.intValue());
         modelAndView.addObject("user", user);
         modelAndView.setViewName("search");
         return modelAndView;
@@ -71,7 +71,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/unblocking")
+    /*@GetMapping("/unblocking")
     public ModelAndView unblockPage() {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -81,7 +81,7 @@ public class AdminController {
         modelAndView.setViewName("unblocking");
 
         return modelAndView;
-    }
+    }*/
 
     @PostMapping("/unblocking")
     public ModelAndView unblockingPage(@ModelAttribute("NumberCard") CreditCard creditCard) {
